@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | ShopSphere</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#0d9488',
+                            600: '#0f766e',
+                        },
+                        secondary: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <i data-feather="shopping-bag" class="text-primary-500 dark:text-primary-400"></i>
+                <span class="text-xl font-bold text-gray-800 dark:text-white">ShopSphere</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="products.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Products</a>
+                <a href="categories.html" class="text-primary-500 dark:text-primary-400 font-medium">Categories</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Deals</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Vouchers</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="moon" class="hidden dark:block"></i>
+                    <i data-feather="sun" class="dark:hidden"></i>
+                </button>
+                <a href="#" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="shopping-cart"></i>
+                </a>
+                <a href="dashboard.html" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+<i data-feather="user"></i>
+                </a>
+<button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Categories Page Content -->
+    <main class="py-8">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-8">Browse Categories</h1>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Electronics -->
+                <a href="products.html?category=electronics" id="electronics" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <img src="http://static.photos/technology/1200x630/1" alt="Electronics" class="h-full w-full object-cover">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Electronics</h2>
+                        <p class="text-gray-200">Smartphones, Laptops, TVs & more</p>
+                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
+                            <span>Shop Now</span>
+                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Fashion -->
+                <a href="products.html?category=fashion" id="fashion" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <img src="http://static.photos/fashion/1200x630/1" alt="Fashion" class="h-full w-full object-cover">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Fashion</h2>
+                        <p class="text-gray-200">Clothing, Shoes, Accessories & more</p>
+                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
+                            <span>Shop Now</span>
+                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Home & Garden -->
+                <a href="products.html?category=home" id="home" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <img src="http://static.photos/home/1200x630/1" alt="Home & Garden" class="h-full w-full object-cover">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Home & Garden</h2>
+                        <p class="text-gray-200">Furniture, Decor, Kitchen & more</p>
+                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
+                            <span>Shop Now</span>
+                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Beauty -->
+                <a href="products.html?category=beauty" id="beauty" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <img src="http://static.photos/beauty/1200x630/1" alt="Beauty" class="h-full w-full object-cover">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Beauty</h2>
+                        <p class="text-gray-200">Skincare, Makeup, Fragrances & more</p>
+                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
+                            <span>Shop Now</span>
+                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Sports -->
+                <a href="products.html?category=sports" id="sports" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <img src="http://static.photos/sport/1200x630/1" alt="Sports" class="h-full w-full object-cover">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Sports</h2>
+                        <p class="text-gray-200">Fitness, Outdoor, Team Sports & more</p>
+                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
+                            <span>Shop Now</span>
+                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Toys -->
+                <a href="products.html?category=toys" id="toys" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <img src="http://static.photos/toys/1200x630/1" alt="Toys" class="h-full w-full object-cover">
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Toys</h2>
+                        <p class="text-gray-200">Games, Collectibles, Kids & more</p>
+                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
+                            <span>Shop Now</span>
+                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Subcategories -->
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">Shop by Subcategory</h2>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <a href="products.html?subcategory=smartphones" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="smartphone" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Smartphones</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=laptops" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="laptop" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Laptops</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=tvs" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="tv" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">TVs</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=men" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="user" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Men's Fashion</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=women" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="users" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Women's Fashion</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=furniture" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="box" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Furniture</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=kitchen" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="utensils" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Kitchen</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=skincare" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="droplet" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Skincare</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=fitness" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="activity" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Fitness</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=outdoor" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="map" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Outdoor</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=boardgames" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="grid" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Board Games</h3>
+                    </a>
+                    
+                    <a href="products.html?subcategory=collectibles" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
+                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <i data-feather="star" class="text-primary-500 dark:text-primary-400"></i>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Collectibles</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">ShopSphere</h3>
+                    <p class="mb-4">Your one-stop shop for all the latest products and trends.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="products.html" class="hover:text-white">All Products</a></li>
+                        <li><a href="categories.html" class="hover:text-white">Categories</a></li>
+                        <li><a href="#" class="hover:text-white">Deals</a></li>
+                        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Help</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Shipping</a></li>
+                        <li><a href="#" class="hover:text-white">Returns</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
+                            <span>contact@shopsphere.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+                            <span>+1 (800) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="map-pin" class="mr-2 w-4 h-4"></i>
+                            <span>123 Main St, San Francisco, CA</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2023 ShopSphere. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        // Feather icons
+        feather.replace();
+    </script>
+</body>
+</html>

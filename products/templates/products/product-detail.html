@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | ShopSphere</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#0d9488',
+                            600: '#0f766e',
+                        },
+                        secondary: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <i data-feather="shopping-bag" class="text-primary-500 dark:text-primary-400"></i>
+                <span class="text-xl font-bold text-gray-800 dark:text-white">ShopSphere</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="products.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Products</a>
+                <a href="categories.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Categories</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Deals</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Vouchers</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="moon" class="hidden dark:block"></i>
+                    <i data-feather="sun" class="dark:hidden"></i>
+                </button>
+                <a href="#" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="shopping-cart"></i>
+                </a>
+                <a href="dashboard.html" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+<i data-feather="user"></i>
+                </a>
+<button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail Page -->
+    <main class="py-8">
+        <div class="container mx-auto px-4">
+            <!-- Breadcrumb -->
+            <div class="flex items-center text-sm text-gray-600 dark:text-gray-300 mb-6">
+                <a href="index.html" class="hover:text-primary-500 dark:hover:text-primary-400">Home</a>
+                <i data-feather="chevron-right" class="mx-2 w-4 h-4"></i>
+                <a href="products.html" class="hover:text-primary-500 dark:hover:text-primary-400">Products</a>
+                <i data-feather="chevron-right" class="mx-2 w-4 h-4"></i>
+                <span class="text-gray-800 dark:text-white">Premium Wireless Headphones</span>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Product Images -->
+                <div class="lg:w-1/2">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-700 mb-4" style="padding-bottom: 100%;">
+                        <img src="http://static.photos/technology/640x360/1" alt="Premium Wireless Headphones" class="absolute h-full w-full object-cover">
+                    </div>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
+                            <img src="http://static.photos/technology/200x200/11" alt="Headphones Side View" class="absolute h-full w-full object-cover">
+                        </button>
+                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
+                            <img src="http://static.photos/technology/200x200/12" alt="Headphones Case" class="absolute h-full w-full object-cover">
+                        </button>
+                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
+                            <img src="http://static.photos/technology/200x200/13" alt="Headphones Controls" class="absolute h-full w-full object-cover">
+                        </button>
+                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
+                            <img src="http://static.photos/technology/200x200/14" alt="Headphones Wearing" class="absolute h-full w-full object-cover">
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product Info -->
+                <div class="lg:w-1/2">
+                    <div class="flex justify-between items-start mb-4">
+                        <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Premium Wireless Headphones</h1>
+                        <button class="text-gray-400 dark:text-gray-500 hover:text-primary-500 dark:hover:text-primary-400">
+                            <i data-feather="heart"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-secondary-500 mr-2">
+                            <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                            <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                            <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                            <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                            <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">(124 reviews)</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <span class="text-2xl font-bold text-primary-500 dark:text-primary-400">$199.99</span>
+                        <span class="text-lg text-gray-400 dark:text-gray-500 line-through ml-2">$249.99</span>
+                        <span class="ml-2 bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">20% OFF</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i data-feather="check-circle" class="text-green-500 mr-2 w-5 h-5"></i>
+                            <span class="text-gray-700 dark:text-gray-300">In Stock (24 available)</span>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i data-feather="truck" class="text-primary-500 mr-2 w-5 h-5"></i>
+                            <span class="text-gray-700 dark:text-gray-300">Free shipping on orders over $50</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i data-feather="refresh-cw" class="text-primary-500 mr-2 w-5 h-5"></i>
+                            <span class="text-gray-700 dark:text-gray-300">30-day return policy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Color:</h3>
+                        <div class="flex space-x-3">
+                            <button class="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-200" style="background-color: #1f2937;"></button>
+                            <button class="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-200" style="background-color: #6b7280;"></button>
+                            <button class="w-8 h-8 rounded-full border-2 border-primary-500 ring-2 ring-primary-200" style="background-color: #0d9488;"></button>
+                            <button class="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-200" style="background-color: #f59e0b;"></button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Quantity:</h3>
+                        <div class="flex items-center">
+                            <button class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-l-lg hover:bg-gray-200 dark:hover:bg-gray-600">
+                                <i data-feather="minus" class="w-4 h-4"></i>
+                            </button>
+                            <input type="number" value="1" min="1" max="10" class="w-16 text-center bg-white dark:bg-gray-800 border-t border-b border-gray-200 dark:border-gray-600 py-1 px-2">
+                            <button class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-r-lg hover:bg-gray-200 dark:hover:bg-gray-600">
+                                <i data-feather="plus" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mb-8">
+                        <button class="flex-grow bg-primary-500 hover:bg-primary-600 text-white py-3 px-6 rounded-lg font-semibold transition duration-300 flex items-center justify-center">
+                            <i data-feather="shopping-cart" class="mr-2 w-5 h-5"></i> Add to Cart
+                        </button>
+                        <button class="flex-grow bg-secondary-500 hover:bg-secondary-600 text-white py-3 px-6 rounded-lg font-semibold transition duration-300 flex items-center justify-center">
+                            Buy Now
+                        </button>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Product Details:</h3>
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="flex">
+                                <i data-feather="check" class="text-primary-500 mr-2 w-5 h-5"></i>
+                                <span>Active Noise Cancellation</span>
+                            </li>
+                            <li class="flex">
+                                <i data-feather="check" class="text-primary-500 mr-2 w-5 h-5"></i>
+                                <span>30-hour battery life with quick charge</span>
+                            </li>
+                            <li class="flex">
+                                <i data-feather="check" class="text-primary-500 mr-2 w-5 h-5"></i>
+                                <span>Premium sound quality with deep bass</span>
+                            </li>
+                            <li class="flex">
+                                <i data-feather="check" class="text-primary-500 mr-2 w-5 h-5"></i>
+                                <span>Comfortable over-ear design with soft cushions</span>
+                            </li>
+                            <li class="flex">
+                                <i data-feather="check" class="text-primary-500 mr-2 w-5 h-5"></i>
+                                <span>Built-in microphone for hands-free calls</span>
+                            </li>
+                            <li class="flex">
+                                <i data-feather="check" class="text-primary-500 mr-2 w-5 h-5"></i>
+                                <span>Bluetooth 5.0 with 30ft range</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Tabs -->
+            <div class="mt-16">
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <nav class="flex -mb-px">
+                        <button class="mr-8 py-4 px-1 border-b-2 border-primary-500 font-medium text-sm text-primary-500 dark:text-primary-400">Description</button>
+                        <button class="mr-8 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300">Specifications</button>
+                        <button class="mr-8 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300">Reviews (124)</button>
+                        <button class="mr-8 py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300">Shipping & Returns</button>
+                    </nav>
+                </div>
+                
+                <div class="py-8">
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Premium Sound Experience</h2>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">Immerse yourself in crystal-clear audio with our Premium Wireless Headphones. Engineered for audiophiles, these headphones deliver studio-quality sound with deep, precise bass and crisp highs. The advanced noise cancellation technology blocks out external noise, allowing you to focus on your music, podcasts, or calls.</p>
+                    
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">All-Day Comfort</h2>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">Designed for extended listening sessions, the ergonomic over-ear design features ultra-soft protein leather ear cushions and an adjustable headband. The lightweight construction (just 0.5 lbs) ensures you'll forget you're wearing them, even after hours of use.</p>
+                    
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Extended Battery Life</h2>
+                    <p class="text-gray-700 dark:text-gray-300">With up to 30 hours of playtime on a single charge, these headphones will last through even the longest flights or workdays. A quick 10-minute charge provides 5 hours of playback, ensuring you're never without your music when you need it most.</p>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">You May Also Like</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Related Product 1 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                        <a href="product.html?id=2">
+                            <div class="relative pb-[100%] overflow-hidden">
+                                <img src="http://static.photos/technology/640x360/2" alt="Smart Watch" class="absolute h-full w-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">Smart Fitness Watch</h3>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$159.99</span>
+                                    </div>
+                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
+                                        <i data-feather="shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Related Product 2 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                        <a href="product.html?id=3">
+                            <div class="relative pb-[100%] overflow-hidden">
+                                <img src="http://static.photos/technology/640x360/3" alt="Bluetooth Speaker" class="absolute h-full w-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">Portable Bluetooth Speaker</h3>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$79.99</span>
+                                    </div>
+                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
+                                        <i data-feather="shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Related Product 3 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                        <a href="product.html?id=4">
+                            <div class="relative pb-[100%] overflow-hidden">
+                                <img src="http://static.photos/technology/640x360/4" alt="Wireless Earbuds" class="absolute h-full w-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">True Wireless Earbuds</h3>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$129.99</span>
+                                    </div>
+                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
+                                        <i data-feather="shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Related Product 4 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                        <a href="product.html?id=5">
+                            <div class="relative pb-[100%] overflow-hidden">
+                                <img src="http://static.photos/technology/640x360/5" alt="Wireless Charger" class="absolute h-full w-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">Fast Wireless Charger</h3>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$49.99</span>
+                                    </div>
+                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
+                                        <i data-feather="shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">ShopSphere</h3>
+                    <p class="mb-4">Your one-stop shop for all the latest products and trends.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="products.html" class="hover:text-white">All Products</a></li>
+                        <li><a href="categories.html" class="hover:text-white">Categories</a></li>
+                        <li><a href="#" class="hover:text-white">Deals</a></li>
+                        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Help</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Shipping</a></li>
+                        <li><a href="#" class="hover:text-white">Returns</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
+                            <span>contact@shopsphere.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+                            <span>+1 (800) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="map-pin" class="mr-2 w-4 h-4"></i>
+                            <span>123 Main St, San Francisco, CA</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2023 ShopSphere. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        // Feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
