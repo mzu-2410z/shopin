@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ShopSphere</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#0d9488',
+                            600: '#0f766e',
+                        },
+                        secondary: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <i data-feather="shopping-bag" class="text-primary-500 dark:text-primary-400"></i>
+                <span class="text-xl font-bold text-gray-800 dark:text-white">ShopSphere</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="products.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Products</a>
+                <a href="categories.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Categories</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Deals</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="moon" class="hidden dark:block"></i>
+                    <i data-feather="sun" class="dark:hidden"></i>
+                </button>
+                <a href="dashboard.html" class="p-2 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-500 dark:text-primary-400">
+                    <i data-feather="user"></i>
+                </a>
+                <button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Sidebar -->
+                <div class="md:w-1/4">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="relative">
+                                <img src="http://static.photos/people/200x200/1" alt="User" class="w-16 h-16 rounded-full object-cover">
+                                <span class="absolute bottom-0 right-0 bg-green-500 rounded-full w-4 h-4 border-2 border-white dark:border-gray-800"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 dark:text-white">John Doe</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Premium Member</p>
+                            </div>
+                        </div>
+                        <nav class="space-y-2">
+                            <a href="dashboard.html" class="flex items-center px-4 py-3 rounded-lg bg-primary-50 dark:bg-gray-700 text-primary-500 dark:text-primary-400 font-medium">
+                                <i data-feather="home" class="w-5 h-5 mr-3"></i>
+                                Dashboard
+                            </a>
+                            <a href="profile.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                <i data-feather="user" class="w-5 h-5 mr-3"></i>
+                                Profile
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                <i data-feather="shopping-bag" class="w-5 h-5 mr-3"></i>
+                                Orders
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                <i data-feather="heart" class="w-5 h-5 mr-3"></i>
+                                Wishlist
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                <i data-feather="settings" class="w-5 h-5 mr-3"></i>
+                                Settings
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                                <i data-feather="log-out" class="w-5 h-5 mr-3"></i>
+                                Logout
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="md:w-3/4">
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Dashboard</h1>
+                    
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-1">Total Orders</p>
+                                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white">24</h3>
+                                </div>
+                                <div class="p-3 rounded-lg bg-primary-100 dark:bg-primary-900 text-primary-500 dark:text-primary-400">
+                                    <i data-feather="shopping-bag"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-1">Pending Orders</p>
+                                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white">3</h3>
+                                </div>
+                                <div class="p-3 rounded-lg bg-yellow-100 dark:bg-yellow-900 text-yellow-500 dark:text-yellow-400">
+                                    <i data-feather="clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-1">Wishlist Items</p>
+                                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white">12</h3>
+                                </div>
+                                <div class="p-3 rounded-lg bg-red-100 dark:bg-red-900 text-red-500 dark:text-red-400">
+                                    <i data-feather="heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-1">Account Credit</p>
+                                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white">$125.50</h3>
+                                </div>
+                                <div class="p-3 rounded-lg bg-green-100 dark:bg-green-900 text-green-500 dark:text-green-400">
+                                    <i data-feather="dollar-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-bold text-gray-800 dark:text-white">Recent Orders</h2>
+                            <a href="#" class="text-primary-500 dark:text-primary-400 hover:underline">View All</a>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="border-b border-gray-200 dark:border-gray-700">
+                                    <tr>
+                                        <th class="text-left pb-4 text-gray-600 dark:text-gray-300 font-medium">Order ID</th>
+                                        <th class="text-left pb-4 text-gray-600 dark:text-gray-300 font-medium">Date</th>
+                                        <th class="text-left pb-4 text-gray-600 dark:text-gray-300 font-medium">Status</th>
+                                        <th class="text-left pb-4 text-gray-600 dark:text-gray-300 font-medium">Total</th>
+                                        <th class="text-right pb-4"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tr>
+                                        <td class="py-4 text-gray-800 dark:text-white">#SPH-2023-4567</td>
+                                        <td class="py-4 text-gray-600 dark:text-gray-300">May 12, 2023</td>
+                                        <td class="py-4">
+                                            <span class="px-3 py-1 rounded-full text-sm bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-400">Delivered</span>
+                                        </td>
+                                        <td class="py-4 text-gray-800 dark:text-white">$245.99</td>
+                                        <td class="py-4 text-right">
+                                            <a href="#" class="text-primary-500 dark:text-primary-400 hover:underline">Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 text-gray-800 dark:text-white">#SPH-2023-4566</td>
+                                        <td class="py-4 text-gray-600 dark:text-gray-300">May 8, 2023</td>
+                                        <td class="py-4">
+                                            <span class="px-3 py-1 rounded-full text-sm bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-400">Processing</span>
+                                        </td>
+                                        <td class="py-4 text-gray-800 dark:text-white">$189.50</td>
+                                        <td class="py-4 text-right">
+                                            <a href="#" class="text-primary-500 dark:text-primary-400 hover:underline">Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 text-gray-800 dark:text-white">#SPH-2023-4565</td>
+                                        <td class="py-4 text-gray-600 dark:text-gray-300">May 5, 2023</td>
+                                        <td class="py-4">
+                                            <span class="px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-400">Shipped</span>
+                                        </td>
+                                        <td class="py-4 text-gray-800 dark:text-white">$320.00</td>
+                                        <td class="py-4 text-right">
+                                            <a href="#" class="text-primary-500 dark:text-primary-400 hover:underline">Details</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-6">Recent Activity</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-primary-100 dark:bg-primary-900 p-3 rounded-lg text-primary-500 dark:text-primary-400 mr-4">
+                                    <i data-feather="shopping-bag" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-white">Order #SPH-2023-4567 placed</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">May 12, 2023 at 10:30 AM</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg text-blue-500 dark:text-blue-400 mr-4">
+                                    <i data-feather="truck" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-white">Order #SPH-2023-4566 shipped</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">May 10, 2023 at 3:45 PM</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-green-100 dark:bg-green-900 p-3 rounded-lg text-green-500 dark:text-green-400 mr-4">
+                                    <i data-feather="check-circle" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-white">Order #SPH-2023-4565 delivered</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">May 8, 2023 at 11:20 AM</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 dark:bg-purple-900 p-3 rounded-lg text-purple-500 dark:text-purple-400 mr-4">
+                                    <i data-feather="heart" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-white">Added to wishlist</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">May 5, 2023 at 9:15 AM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">ShopSphere</h3>
+                    <p class="mb-4">Your one-stop shop for all the latest products and trends.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="products.html" class="hover:text-white">All Products</a></li>
+                        <li><a href="categories.html" class="hover:text-white">Categories</a></li>
+                        <li><a href="#" class="hover:text-white">Deals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Help</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Shipping</a></li>
+                        <li><a href="#" class="hover:text-white">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
+                            <span>contact@shopsphere.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+                            <span>+1 (800) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2023 ShopSphere. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        // Feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
