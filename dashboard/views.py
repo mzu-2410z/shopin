@@ -6,5 +6,8 @@ def user_dashboard(request):
 def profile_view(request):
     return render(request, 'dashboard/profile.html')
 
+def wishlist(request):
+    return render(request, 'dashboard/wishlist.html')
+
 def orders_view(request):
     return render(request, 'dashboard/orders.html')

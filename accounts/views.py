@@ -24,7 +24,7 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('core:index')
+    return redirect('core:home')
 
 
 def password_reset_view(request):

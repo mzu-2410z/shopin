@@ -47,7 +47,7 @@
                     <i data-feather="moon" class="hidden dark:block"></i>
                     <i data-feather="sun" class="dark:hidden"></i>
                 </button>
-                <a href="dashboard.html" class="p-2 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-500 dark:text-primary-400">
+                <a href="{% url 'dashboard:user_dashboard' %}" class="p-2 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-500 dark:text-primary-400">
                     <i data-feather="user"></i>
                 </a>
                 <button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
@@ -75,19 +75,19 @@
                             </div>
                         </div>
                         <nav class="space-y-2">
-                            <a href="dashboard.html" class="flex items-center px-4 py-3 rounded-lg bg-primary-50 dark:bg-gray-700 text-primary-500 dark:text-primary-400 font-medium">
+                            <a href="{% url 'dashboard:user_dashboard' %}" class="flex items-center px-4 py-3 rounded-lg bg-primary-50 dark:bg-gray-700 text-primary-500 dark:text-primary-400 font-medium">
                                 <i data-feather="home" class="w-5 h-5 mr-3"></i>
                                 Dashboard
                             </a>
-                            <a href="profile.html" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                            <a href="{% url 'dashboard:profile' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                                 <i data-feather="user" class="w-5 h-5 mr-3"></i>
                                 Profile
                             </a>
-                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                            <a href="{% url 'dashboard:orders' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                                 <i data-feather="shopping-bag" class="w-5 h-5 mr-3"></i>
                                 Orders
                             </a>
-                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                            <a href="{% url 'dashboard:wishlist' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                                 <i data-feather="heart" class="w-5 h-5 mr-3"></i>
                                 Wishlist
                             </a>
@@ -95,7 +95,7 @@
                                 <i data-feather="settings" class="w-5 h-5 mr-3"></i>
                                 Settings
                             </a>
-                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                            <a href="{% url 'accounts:logout' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                                 <i data-feather="log-out" class="w-5 h-5 mr-3"></i>
                                 Logout
                             </a>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wishlist | ShopSphere</title>
+    <title>My Orders | ShopSphere</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
@@ -85,11 +85,11 @@
                                 <i data-feather="user" class="w-5 h-5 mr-3"></i>
                                 Profile
                             </a>
-                            <a href="{% url 'dashboard:orders' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                            <a href="{% url 'dashboard:orders' %}" class="flex items-center px-4 py-3 rounded-lg bg-primary-50 dark:bg-gray-700 text-primary-500 dark:text-primary-400 font-medium">
                                 <i data-feather="shopping-bag" class="w-5 h-5 mr-3"></i>
                                 Orders
                             </a>
-                            <a href="{% url 'dashboard:wishlist' %}" class="flex items-center px-4 py-3 rounded-lg bg-primary-50 dark:bg-gray-700 text-primary-500 dark:text-primary-400 font-medium">
+                            <a href="{% url 'dashboard:wishlist' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                                 <i data-feather="heart" class="w-5 h-5 mr-3"></i>
                                 Wishlist
                             </a>
@@ -107,157 +107,155 @@
 
                 <div class="md:w-3/4">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-                        <h1 class="text-3xl font-bold text-gray-800 dark:text-white">My Wishlist (4 items)</h1>
-                        <div class="mt-4 md:mt-0">
+                        <h1 class="text-3xl font-bold text-gray-800 dark:text-white">My Orders</h1>
+                        <div class="flex space-x-4 mt-4 md:mt-0">
+                            <button class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
+                                Filter Orders
+                            </button>
                             <button class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg">
-                                Move All to Cart
+                                Download All Invoices
                             </button>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/1" alt="Product" class="object-cover w-full h-full">
+                    <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden">
+                        <div class="border-b border-gray-200 dark:border-gray-600 p-6">
+                            <div class="flex flex-col md:flex-row justify-between mb-4">
+                                <div>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">Order #SPH-123456</span>
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Delivered on Oct 12, 2023</h3>
                                 </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
-                                    </button>
-                                </div>
-                                <div class="absolute bottom-3 left-3">
-                                    <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">20% OFF</span>
+                                <div class="mt-2 md:mt-0">
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                                        Delivered
+                                    </span>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Premium Wireless Headphones</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="flex items-center">
+                                    <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-600 mr-4">
+                                        <img src="http://static.photos/technology/200x200/1" alt="Product" class="h-full w-full object-cover">
                                     </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(124)</span>
-                                </div>
-                                <div class="flex justify-between items-center">
                                     <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$199.99</span>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400 line-through ml-1">$249.99</span>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Premium Wireless Headphones</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Qty: 1</p>
+                                        <p class="text-primary-500 dark:text-primary-400 font-semibold">$199.99</p>
                                     </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-600 mr-4">
+                                        <img src="http://static.photos/technology/200x200/2" alt="Product" class="h-full w-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Smart Fitness Watch</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Qty: 1</p>
+                                        <p class="text-primary-500 dark:text-primary-400 font-semibold">$159.99</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col justify-between">
+                                    <div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Total Amount</p>
+                                        <p class="text-xl font-bold text-gray-800 dark:text-white">$359.98</p>
+                                    </div>
+                                    <div class="flex space-x-2 mt-4">
+                                        <button class="flex-1 bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg text-sm">
+                                            View Details
+                                        </button>
+                                        <button class="flex-1 bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg text-sm">
+                                            Buy Again
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/2" alt="Product" class="object-cover w-full h-full">
+                        <div class="border-b border-gray-200 dark:border-gray-600 p-6">
+                            <div class="flex flex-col md:flex-row justify-between mb-4">
+                                <div>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">Order #SPH-789012</span>
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Shipped on Oct 5, 2023</h3>
                                 </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
-                                    </button>
+                                <div class="mt-2 md:mt-0">
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                        Shipped
+                                    </span>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Smart Fitness Watch</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4"></i>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="flex items-center">
+                                    <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-600 mr-4">
+                                        <img src="http://static.photos/electronics/200x200/3" alt="Product" class="h-full w-full object-cover">
                                     </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(87)</span>
-                                </div>
-                                <div class="flex justify-between items-center">
                                     <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$159.99</span>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Mechanical Gaming Keyboard</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Qty: 2</p>
+                                        <p class="text-primary-500 dark:text-primary-400 font-semibold">$99.99</p>
                                     </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
+                                </div>
+
+                                <div class="flex flex-col justify-between md:col-start-3">
+                                    <div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Total Amount</p>
+                                        <p class="text-xl font-bold text-gray-800 dark:text-white">$199.98</p>
+                                    </div>
+                                    <div class="flex space-x-2 mt-4">
+                                        <button class="flex-1 bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg text-sm">
+                                            View Details
+                                        </button>
+                                        <button class="flex-1 bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg text-sm">
+                                            Track Shipment
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/3" alt="Product" class="object-cover w-full h-full">
+                        <div class="p-6">
+                            <div class="flex flex-col md:flex-row justify-between mb-4">
+                                <div>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">Order #SPH-456789</span>
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Cancelled on Sep 20, 2023</h3>
                                 </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
-                                    </button>
+                                <div class="mt-2 md:mt-0">
+                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
+                                        Cancelled
+                                    </span>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">4K Ultra HD Monitor</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="flex items-center">
+                                    <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-600 mr-4">
+                                        <img src="http://static.photos/apparel/200x200/4" alt="Product" class="h-full w-full object-cover">
                                     </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(210)</span>
-                                </div>
-                                <div class="flex justify-between items-center">
                                     <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$399.99</span>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Limited Edition T-shirt</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Qty: 1</p>
+                                        <p class="text-primary-500 dark:text-primary-400 font-semibold">$39.99</p>
                                     </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
+                                </div>
+
+                                <div class="flex flex-col justify-between md:col-start-3">
+                                    <div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Total Amount</p>
+                                        <p class="text-xl font-bold text-gray-800 dark:text-white">$39.99</p>
+                                    </div>
+                                    <div class="flex space-x-2 mt-4">
+                                        <button class="flex-1 bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg text-sm">
+                                            View Details
+                                        </button>
+                                        <button class="flex-1 bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-lg text-sm">
+                                            Re-Order
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/4" alt="Product" class="object-cover w-full h-full">
-                                </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
-                                    </button>
-                                </div>
-                                <div class="absolute bottom-3 left-3">
-                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">Low Stock</span>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Ergonomic Office Chair</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4"></i>
-                                    </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(45)</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$249.00</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
