@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+LOGIN_URL = 'accounts:login'
+
 
 # Application definition
 
@@ -42,6 +47,7 @@ INSTALLED_APPS = [
     'cart',
     'dashboard',
     'core',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
