@@ -1,3 +1,5 @@
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en" class="light">
 <head>
@@ -29,7 +31,6 @@
     </script>
 </head>
 <body class="bg-white dark:bg-gray-900 transition-colors duration-300">
-    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-2">
@@ -62,10 +63,8 @@
         </div>
     </header>
 
-    <!-- Product Detail Page -->
     <main class="py-8">
         <div class="container mx-auto px-4">
-            <!-- Breadcrumb -->
             <div class="flex items-center text-sm text-gray-600 dark:text-gray-300 mb-6">
                 <a href="index.html" class="hover:text-primary-500 dark:hover:text-primary-400">Home</a>
                 <i data-feather="chevron-right" class="mx-2 w-4 h-4"></i>
@@ -75,31 +74,37 @@
             </div>
             
             <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Product Images -->
                 <div class="lg:w-1/2">
                     <div class="relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-700 mb-4" style="padding-bottom: 100%;">
-                        <img src="http://static.photos/technology/640x360/1" alt="Premium Wireless Headphones" class="absolute h-full w-full object-cover">
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                             class="absolute h-full w-full object-cover">
+                        </div>
+                    <div class="grid grid-cols-4 gap-3 mt-4">
+
+                        {% if product.gallery1 %}
+                        <img src="{{ product.gallery1.url }}" class="h-20 w-full object-cover rounded-lg cursor-pointer">
+                        {% endif %}
+
+                        {% if product.gallery2 %}
+                        <img src="{{ product.gallery2.url }}" class="h-20 w-full object-cover rounded-lg cursor-pointer">
+                        {% endif %}
+
+                        {% if product.gallery3 %}
+                        <img src="{{ product.gallery3.url }}" class="h-20 w-full object-cover rounded-lg cursor-pointer">
+                        {% endif %}
+
+                        {% if product.gallery4 %}
+                        <img src="{{ product.gallery4.url }}" class="h-20 w-full object-cover rounded-lg cursor-pointer">
+                        {% endif %}
+
                     </div>
-                    <div class="grid grid-cols-4 gap-3">
-                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
-                            <img src="http://static.photos/technology/200x200/11" alt="Headphones Side View" class="absolute h-full w-full object-cover">
-                        </button>
-                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
-                            <img src="http://static.photos/technology/200x200/12" alt="Headphones Case" class="absolute h-full w-full object-cover">
-                        </button>
-                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
-                            <img src="http://static.photos/technology/200x200/13" alt="Headphones Controls" class="absolute h-full w-full object-cover">
-                        </button>
-                        <button class="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700" style="padding-bottom: 100%;">
-                            <img src="http://static.photos/technology/200x200/14" alt="Headphones Wearing" class="absolute h-full w-full object-cover">
-                        </button>
                     </div>
-                </div>
                 
-                <!-- Product Info -->
                 <div class="lg:w-1/2">
                     <div class="flex justify-between items-start mb-4">
-                        <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Premium Wireless Headphones</h1>
+                        <h1 class="text-3xl font-semibold text-gray-800 dark:text-white">
+                            {{ product.title }}
+                        </h1>
                         <button class="text-gray-400 dark:text-gray-500 hover:text-primary-500 dark:hover:text-primary-400">
                             <i data-feather="heart"></i>
                         </button>
@@ -115,18 +120,38 @@
                         </div>
                         <span class="text-sm text-gray-600 dark:text-gray-300">(124 reviews)</span>
                     </div>
-                    
-                    <div class="mb-6">
-                        <span class="text-2xl font-bold text-primary-500 dark:text-primary-400">$199.99</span>
-                        <span class="text-lg text-gray-400 dark:text-gray-500 line-through ml-2">$249.99</span>
-                        <span class="ml-2 bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">20% OFF</span>
+
+                    <div class="flex items-center gap-4 mt-3">
+                        <span class="text-2xl font-bold text-primary-500 dark:text-primary-400">
+                            ${{ product.price }}
+                        </span>
+
+                        {% if product.old_price %}
+                            <span class="text-lg line-through text-gray-400 dark:text-gray-500">
+                            ${{ product.old_price }}
+                            </span>
+                        {% endif %}
+
+                        {% if product.discount_percent %}
+                            <span class="ml-2 bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">
+                                -{{ product.discount_percent }}%
+                            </span>
+                        {% endif %}
                     </div>
                     
                     <div class="mb-6">
-                        <div class="flex items-center mb-2">
-                            <i data-feather="check-circle" class="text-green-500 mr-2 w-5 h-5"></i>
-                            <span class="text-gray-700 dark:text-gray-300">In Stock (24 available)</span>
-                        </div>
+                        {% if product.stock > 0 %}
+                            <div class="flex items-center mb-2">
+                                <i data-feather="check-circle" class="text-green-500 mr-2 w-5 h-5"></i>
+                                <span class="text-green-500 font-medium">In Stock ({{ product.stock }} available)</span>
+                            </div>
+                        {% else %}
+                            <div class="flex items-center mb-2">
+                                <i data-feather="x-circle" class="text-red-500 mr-2 w-5 h-5"></i>
+                                <span class="text-red-500 font-medium">Out of Stock</span>
+                            </div>
+                        {% endif %}
+
                         <div class="flex items-center mb-2">
                             <i data-feather="truck" class="text-primary-500 mr-2 w-5 h-5"></i>
                             <span class="text-gray-700 dark:text-gray-300">Free shipping on orders over $50</span>
@@ -171,6 +196,9 @@
                     
                     <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
                         <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Product Details:</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-6">
+                            {{ product.full_description }}
+                        </p>
                         <ul class="space-y-3 text-gray-700 dark:text-gray-300">
                             <li class="flex">
                                 <i data-feather="check" class="text-primary-500 mr-2 w-5 h-5"></i>
@@ -201,7 +229,6 @@
                 </div>
             </div>
             
-            <!-- Product Tabs -->
             <div class="mt-16">
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <nav class="flex -mb-px">
@@ -224,95 +251,43 @@
                 </div>
             </div>
             
-            <!-- Related Products -->
             <div class="mt-16">
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">You May Also Like</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <!-- Related Product 1 -->
-                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                        <a href="product.html?id=2">
-                            <div class="relative pb-[100%] overflow-hidden">
-                                <img src="http://static.photos/technology/640x360/2" alt="Smart Watch" class="absolute h-full w-full object-cover">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">Smart Fitness Watch</h3>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$159.99</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
+
+                    {% for r in related_products %}
+                    <div class="bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden group">
+
+                        <a href="{{ r.get_absolute_url }}">
+                            <img src="{{ r.image.url }}" class="w-full h-48 object-cover">
                         </a>
+
+                        <div class="p-4">
+                            <a href="{{ r.get_absolute_url }}">
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-primary-500 transition">
+                                    {{ r.title }}
+                                </h3>
+                            </a>
+
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                {{ r.short_description|truncatechars:70 }}
+                            </p>
+
+                            <div class="flex items-center gap-3 mt-3">
+                                <span class="text-lg font-bold text-primary-500">${{ r.price }}</span>
+                                {% if r.old_price %}
+                                <span class="text-sm line-through text-gray-400">${{ r.old_price }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                    
-                    <!-- Related Product 2 -->
-                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                        <a href="product.html?id=3">
-                            <div class="relative pb-[100%] overflow-hidden">
-                                <img src="http://static.photos/technology/640x360/3" alt="Bluetooth Speaker" class="absolute h-full w-full object-cover">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">Portable Bluetooth Speaker</h3>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$79.99</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Related Product 3 -->
-                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                        <a href="product.html?id=4">
-                            <div class="relative pb-[100%] overflow-hidden">
-                                <img src="http://static.photos/technology/640x360/4" alt="Wireless Earbuds" class="absolute h-full w-full object-cover">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">True Wireless Earbuds</h3>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$129.99</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Related Product 4 -->
-                    <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                        <a href="product.html?id=5">
-                            <div class="relative pb-[100%] overflow-hidden">
-                                <img src="http://static.photos/technology/640x360/5" alt="Wireless Charger" class="absolute h-full w-full object-cover">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate mb-2">Fast Wireless Charger</h3>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-bold">$49.99</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    {% endfor %}
+
                 </div>
-            </div>
+                </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-300 py-12">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -398,3 +373,4 @@
     </script>
 </body>
 </html>
+{% endblock %}

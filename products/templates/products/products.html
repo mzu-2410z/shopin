@@ -1,3 +1,7 @@
+{% load static %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en" class="light">
 <head>
@@ -98,196 +102,99 @@
             </div>
             
             <!-- Product Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Product 1 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=1">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/1" alt="Wireless Headphones" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">Premium Wireless Headphones</h3>
-                                <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">Sale</span>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">High-quality wireless headphones with noise cancellation and 30-hour battery life</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$199.99</span>
-                                    <span class="text-gray-400 dark:text-gray-500 text-sm line-through ml-2">$249.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Product 2 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=2">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/2" alt="Smart Watch" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">Smart Fitness Watch</h3>
-                                <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">New</span>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">Track your fitness, heart rate, and sleep with this advanced smartwatch</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$159.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=3">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/3" alt="Bluetooth Speaker" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">Portable Bluetooth Speaker</h3>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">Waterproof speaker with 20-hour battery life and rich bass</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$79.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Product 4 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=4">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/4" alt="Wireless Earbuds" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">True Wireless Earbuds</h3>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">Compact earbuds with crystal clear sound and 8-hour battery</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$129.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Product 5 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=5">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/5" alt="Wireless Charger" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">Fast Wireless Charger</h3>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">15W fast wireless charging pad compatible with all Qi-enabled devices</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$49.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Product 6 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=6">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/6" alt="Power Bank" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">20000mAh Power Bank</h3>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">High-capacity portable charger with dual USB ports and fast charging</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$39.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Product 7 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=7">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/7" alt="Laptop Stand" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">Adjustable Laptop Stand</h3>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">Ergonomic stand for laptops up to 17 inches with 6 height adjustments</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$34.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Product 8 -->
-                <div class="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300">
-                    <a href="product.html?id=8">
-                        <div class="relative pb-[100%] overflow-hidden">
-                            <img src="http://static.photos/technology/640x360/8" alt="Monitor" class="absolute h-full w-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-semibold text-gray-800 dark:text-white truncate">27" 4K Monitor</h3>
-                                <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">Sale</span>
-                            </div>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">Ultra HD monitor with HDR and 99% sRGB color accuracy</p>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-primary-500 dark:text-primary-400 font-bold">$349.99</span>
-                                    <span class="text-gray-400 dark:text-gray-500 text-sm line-through ml-2">$399.99</span>
-                                </div>
-                                <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+
+
+                <!-- Categories -->
+                {% if categories %}
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        {% for category in categories %}
+                            <a href="?category={{ category.slug }}"
+                               class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white transition">
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
+
+            <!-- Products Grid -->
+            <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-10">
+
+                {% if products %}
+                    {% for product in products %}
+                        <div class="bg-white dark:bg-gray-900 shadow-md rounded-xl overflow-hidden group">
+
+                            <!-- Product Image -->
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                                     class="w-full h-56 object-cover">
+                            </a>
+
+                            <div class="p-4">
+
+                                <!-- Product Title -->
+                                <a href="{{ product.get_absolute_url }}">
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-primary-500 transition">
+                                        {{ product.title }}
+                                    </h3>
+                                </a>
+
+                                <!-- Short Description -->
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                    {{ product.short_description|truncatechars:80 }}
+                                </p>
+
+                                <!-- Pricing -->
+                                <div class="flex items-center gap-3 mt-3">
+                                    <span class="text-xl font-bold text-primary-500">
+                                        ${{ product.price }}
+                                    </span>
+
+                                    {% if product.old_price %}
+                                        <span class="text-sm line-through text-gray-400">
+                                            ${{ product.old_price }}
+                                        </span>
+
+                                        {% if product.discount_percent %}
+                                            <span class="text-sm text-green-500 font-semibold">
+                                                -{{ product.discount_percent }}%
+                                            </span>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+
+                                <!-- Stock Status -->
+                                {% if product.stock > 0 %}
+                                    <p class="text-sm text-green-500 mt-2">In Stock</p>
+                                {% else %}
+                                    <p class="text-sm text-red-500 mt-2">Out of Stock</p>
+                                {% endif %}
+
+                                <!-- CTA Buttons -->
+                                <div class="mt-4 flex items-center justify-between">
+                                    <a href="{{ product.get_absolute_url }}"
+                                       class="px-4 py-2 text-sm bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition">
+                                        View Details
+                                    </a>
+
+                                    <button class="px-3 py-2 text-sm border border-primary-500 text-primary-500 rounded-lg hover:bg-primary-500 hover:text-white transition">
+                                        Add to Cart
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-gray-600 dark:text-gray-300 col-span-4 text-center text-lg">
+                        No products available.
+                    </p>
+                {% endif %}
+
+            </div>
+
+            {% endblock %}
+
             
             <!-- Pagination -->
             <div class="mt-12 flex justify-center">

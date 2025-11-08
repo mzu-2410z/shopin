@@ -1,10 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Product, Category
 
 def products_list(request):
-    return render(request, 'products/products.html')
+    products = Product.objects.all()
+    categories = Category.objects.all()
 
-def product_detail(request, product_id):
-    return render(request, 'products/product-detail.html', {'product_id': product_id})
+    return render(request, "products/products.html", {
+        "products": products,
+        "categories": categories,
+    })
+
+
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    related_products = Product.objects.exclude(id=product.id)[:4]
+
+    return render(request, "products/product-detail.html", {
+        "product": product,
+        "related_products": related_products,
+    })
+
 
 def categories_view(request):
     return render(request, 'products/categories.html')
