@@ -9,7 +9,8 @@ def user_dashboard(request):
 
 @login_required
 def profile_view(request):
-    return render(request, 'dashboard/profile.html')
+    user = request.user  # the logged-in user instance
+    return render(request, "dashboard/profile.html", {"user": user})
 
 
 @login_required

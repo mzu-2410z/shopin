@@ -1,10 +1,12 @@
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | ShopSphere</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
@@ -28,7 +30,6 @@
     </script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-2">
@@ -57,21 +58,19 @@
         </div>
     </header>
 
-    <!-- Profile Content -->
     <main class="py-8">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row gap-8">
-                <!-- Sidebar -->
                 <div class="md:w-1/4">
                     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
                         <div class="flex items-center space-x-4 mb-6">
                             <div class="relative">
-                                <img src="http://static.photos/people/200x200/1" alt="User" class="w-16 h-16 rounded-full object-cover">
+                                <img src="{{ user.profile_image.url|default:'/static/default-user.png' }}" alt="User Profile Picture" class="w-16 h-16 rounded-full object-cover">
                                 <span class="absolute bottom-0 right-0 bg-green-500 rounded-full w-4 h-4 border-2 border-white dark:border-gray-800"></span>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800 dark:text-white">John Doe</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-300">Premium Member</p>
+                                <h3 class="font-bold text-gray-800 dark:text-white">{{ user.first_name }} {{ user.last_name }}</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Member</p>
                             </div>
                         </div>
                         <nav class="space-y-2">
@@ -95,7 +94,7 @@
                                 <i data-feather="settings" class="w-5 h-5 mr-3"></i>
                                 Settings
                             </a>
-                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                            <a href="{% url 'accounts:logout' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
                                 <i data-feather="log-out" class="w-5 h-5 mr-3"></i>
                                 Logout
                             </a>
@@ -103,7 +102,6 @@
                     </div>
                 </div>
 
-                <!-- Main Content -->
                 <div class="md:w-3/4">
                     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
                         <div class="flex justify-between items-center mb-6">
@@ -114,47 +112,48 @@
                         <div class="flex flex-col md:flex-row gap-8 mb-8">
                             <div class="md:w-1/3 flex flex-col items-center">
                                 <div class="relative mb-4">
-                                    <img src="http://static.photos/people/200x200/1" alt="User" class="w-32 h-32 rounded-full object-cover">
+                                    <img src="{{ user.profile_image.url|default:'/static/default-user.png' }}" alt="User Profile Picture" class="w-32 h-32 rounded-full object-cover">
                                     <button class="absolute bottom-0 right-0 bg-white dark:bg-gray-700 p-2 rounded-full shadow-sm">
                                         <i data-feather="camera" class="w-4 h-4"></i>
                                     </button>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 dark:text-white">John Doe</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-300">Premium Member</p>
+                                <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+                                    {{ user.first_name }} {{ user.last_name }}
+                                </h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Member</p>
                             </div>
                             
                             <div class="md:w-2/3">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
-                                        <p class="text-gray-800 dark:text-white">John</p>
+                                        <p class="text-gray-800 dark:text-white">{{ user.first_name }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
-                                        <p class="text-gray-800 dark:text-white">Doe</p>
+                                        <p class="text-gray-800 dark:text-white">{{ user.last_name }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                                        <p class="text-gray-800 dark:text-white">john.doe@example.com</p>
+                                        <p class="text-gray-800 dark:text-white">{{ user.email }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone</label>
-                                        <p class="text-gray-800 dark:text-white">+1 (555) 123-4567</p>
+                                        <p class="text-gray-800 dark:text-white">{{ user.phone }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date of Birth</label>
-                                        <p class="text-gray-800 dark:text-white">January 15, 1990</p>
+                                        <p class="text-gray-800 dark:text-white">{{ user.dob }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Gender</label>
-                                        <p class="text-gray-800 dark:text-white">Male</p>
+                                        <p class="text-gray-800 dark:text-white">{{ user.gender|title }}</p>
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address</label>
-                                        <p class="text-gray-800 dark:text-white">123 Main Street, Apt 4B</p>
-                                        <p class="text-gray-800 dark:text-white">New York, NY 10001</p>
-                                        <p class="text-gray-800 dark:text-white">United States</p>
-                                    </div>
+                                        <p class="text-gray-800 dark:text-white">{{ user.address_line1 }}</p>
+                                        <p class="text-gray-800 dark:text-white">{{ user.city }}, {{ user.state }} {{ user.zip_code }}</p>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +186,6 @@
                         </div>
                     </div>
                     
-                    <!-- Account Preferences -->
                     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mt-6">
                         <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Account Preferences</h2>
                         <div class="space-y-4">
@@ -228,7 +226,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-300 py-12">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -308,3 +305,4 @@
     </script>
 </body>
 </html>
+{% endblock %}
