@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | ShopSphere</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#0d9488',
+                            600: '#0f766e',
+                        },
+                        secondary: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <i data-feather="shopping-bag" class="text-primary-500 dark:text-primary-400"></i>
+                <span class="text-xl font-bold text-gray-800 dark:text-white">ShopSphere</span>
+            </a>
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="products.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Products</a>
+                <a href="categories.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Categories</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Deals</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="moon" class="hidden dark:block"></i>
+                    <i data-feather="sun" class="dark:hidden"></i>
+                </button>
+                <a href="user-dashboard.html" class="p-2 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-500 dark:text-primary-400">
+                    <i data-feather="user"></i>
+                </a>
+                <button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8">Your Shopping Cart (2 Items)</h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                        <div class="flex-shrink-0 w-full md:w-32 h-32 overflow-hidden rounded-lg mr-6">
+                            <img src="https://via.placeholder.com/150x150?text=Product+Image" alt="Smartwatch X1" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 mt-4 md:mt-0">
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">Smartwatch X1 Pro</h2>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Color: Black | Size: 44mm</p>
+
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold text-primary-600 dark:text-primary-400">$199.99</span>
+
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-md">
+                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                            <i data-feather="minus" class="w-4 h-4"></i>
+                                        </button>
+                                        <input type="text" value="1" class="w-10 text-center bg-transparent focus:outline-none text-gray-900 dark:text-white">
+                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                            <i data-feather="plus" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                    <button class="text-red-500 hover:text-red-700 p-1">
+                                        <i data-feather="trash-2" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                        <div class="flex-shrink-0 w-full md:w-32 h-32 overflow-hidden rounded-lg mr-6">
+                            <img src="https://via.placeholder.com/150x150?text=Product+Image" alt="Wireless Earbuds" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 mt-4 md:mt-0">
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">Noise-Cancelling Wireless Earbuds</h2>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Color: White | Gen: 2</p>
+
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold text-primary-600 dark:text-primary-400">$79.50</span>
+
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-md">
+                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                            <i data-feather="minus" class="w-4 h-4"></i>
+                                        </button>
+                                        <input type="text" value="2" class="w-10 text-center bg-transparent focus:outline-none text-gray-900 dark:text-white">
+                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                            <i data-feather="plus" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                    <button class="text-red-500 hover:text-red-700 p-1">
+                                        <i data-feather="trash-2" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="{% url 'core:home' %}" class="flex items-center text-primary-500 hover:text-primary-600 font-medium mt-6">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Continue Shopping
+                    </a>
+                </div>
+
+                <div class="lg:col-span-1">
+                    <div class="sticky top-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 space-y-6">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-4">Order Summary</h2>
+
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                                <span>Subtotal (3 Items)</span>
+                                <span class="font-medium">$358.99</span>
+                            </div>
+                            <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                                <span>Shipping Estimate</span>
+                                <span class="font-medium">$10.00</span>
+                            </div>
+                            <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                                <span>Tax Estimate (8%)</span>
+                                <span class="font-medium">$28.72</span>
+                            </div>
+                            <div class="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <span class="text-xl font-bold text-gray-900 dark:text-white">Order Total</span>
+                                <span class="text-xl font-bold text-primary-600 dark:text-primary-400">$397.71</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <label for="coupon" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Apply Coupon</label>
+                            <div class="flex space-x-2">
+                                <input type="text" id="coupon" placeholder="CODE10" class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm">
+                                <button class="px-4 py-2 text-sm font-medium text-white bg-secondary-500 hover:bg-secondary-600 rounded-md transition duration-300">
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
+
+                        <a href="checkout.html" class="w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-300 mt-6">
+                            Proceed to Checkout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-12 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">ShopSphere</h3>
+                    <p class="mb-4">Your one-stop shop for all the latest products and trends.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i data-feather="youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="products.html" class="hover:text-white">All Products</a></li>
+                        <li><a href="categories.html" class="hover:text-white">Categories</a></li>
+                        <li><a href="#" class="hover:text-white">Deals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Help</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Shipping</a></li>
+                        <li><a href="#" class="hover:text-white">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
+                            <span>contact@shopsphere.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+                            <span>+1 (800) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2023 ShopSphere. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        // Feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
