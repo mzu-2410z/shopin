@@ -3,331 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categories | ShopSphere</title>
+    <title>Categories — Shopsphere</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'serif': ['Instrument Serif', 'Georgia', 'serif'],
+                    },
                     colors: {
-                        primary: {
-                            500: '#0d9488',
-                            600: '#0f766e',
+                        ink: {
+                            50: '#f7f7f5', 100: '#eeeeea', 200: '#d9d9d1',
+                            300: '#b8b8ac', 400: '#8f8f81', 500: '#6f6f62',
+                            600: '#57574d', 700: '#464640', 800: '#2b2b26',
+                            900: '#1a1a17', 950: '#0f0f0d',
                         },
-                        secondary: {
-                            500: '#f59e0b',
-                            600: '#d97706',
-                        }
-                    }
+                        accent: { 50: '#fef7ee', 500: '#c2410c', 600: '#9a3412' }
+                    },
+                    letterSpacing: { 'tightest': '-0.04em' }
                 }
             }
         }
     </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-feature-settings: "ss01", "cv11"; }
+        .serif-display { font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.02em; }
+        .hairline { border-color: rgba(0,0,0,0.08); }
+        .dark .hairline { border-color: rgba(255,255,255,0.08); }
+        .marquee { animation: marquee 40s linear infinite; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .img-zoom img { transition: transform 1.4s cubic-bezier(.2,.8,.2,1); }
+        .img-zoom:hover img { transform: scale(1.06); }
+        .sub-tile { transition: background-color .3s, border-color .3s, transform .3s; }
+        .sub-tile:hover { transform: translateY(-2px); }
+        /* subtle scroll-reveal-ish underline on nav */
+        .nav-link { position: relative; }
+        .nav-link.active::after {
+            content: ""; position: absolute; left: 0; right: 0; bottom: -22px;
+            height: 1px; background: currentColor;
+        }
+    </style>
 </head>
-<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+<body class="bg-ink-50 dark:bg-ink-950 text-ink-900 dark:text-ink-100 font-sans antialiased transition-colors duration-300">
+
+    <!-- Announcement Bar -->
+    <div class="bg-ink-900 dark:bg-ink-100 text-ink-50 dark:text-ink-900 text-xs tracking-wide overflow-hidden">
+        <div class="flex whitespace-nowrap py-2.5 marquee">
+            <div class="flex items-center gap-12 pr-12 shrink-0">
+                <span>✦ Complimentary shipping over $50</span>
+                <span>✦ New Autumn edit — now live</span>
+                <span>✦ 30-day considered returns</span>
+                <span>✦ Members earn 2× points this week</span>
+                <span>✦ Complimentary shipping over $50</span>
+                <span>✦ New Autumn edit — now live</span>
+                <span>✦ 30-day considered returns</span>
+                <span>✦ Members earn 2× points this week</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="{% url 'core:home' %}" class="flex items-center space-x-2">
-                <i data-feather="shopping-bag" class="text-primary-500 dark:text-primary-400"></i>
-                <span class="text-xl font-bold text-gray-800 dark:text-white">ShopSphere</span>
-            </a>
-
-            <nav class="hidden md:flex space-x-8">
-                <a href="{% url 'products:products_list' %}" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Products</a>
-                <a href="{% url 'core:categories' %}" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Categories</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Deals</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Vouchers</a>
-            </nav>
-
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="moon" class="hidden dark:block"></i>
-                    <i data-feather="sun" class="dark:hidden"></i>
-                </button>
-                <a href="#" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="shopping-cart"></i>
+    <header class="sticky top-0 z-50 bg-ink-50/80 dark:bg-ink-950/80 backdrop-blur-xl border-b hairline">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+            <div class="flex justify-between items-center h-16">
+                <a href="{% url 'core:home' %}" class="flex items-baseline gap-1.5 group">
+                    <span class="serif-display text-2xl text-ink-900 dark:text-ink-50">Shopsphere</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400 dark:text-ink-500 hidden sm:inline">est. 2024</span>
                 </a>
-                <a href="{% url 'accounts:login' %}" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="user"></i>
-                </a>
-                <button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="menu"></i>
-                </button>
+
+                <nav class="hidden md:flex items-center gap-10">
+                    <a href="{% url 'products:products_list' %}" class="nav-link text-sm text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Shop</a>
+                    <a href="{% url 'core:categories' %}" class="nav-link active text-sm text-ink-950 dark:text-ink-50 font-medium">Categories</a>
+                    <a href="#" class="nav-link text-sm text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Journal</a>
+                    <a href="#" class="nav-link text-sm text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Vouchers</a>
+                </nav>
+
+                <div class="flex items-center gap-1">
+                    <button class="hidden sm:flex p-2.5 text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition" aria-label="Search">
+                        <i data-feather="search" class="w-[18px] h-[18px]"></i>
+                    </button>
+                    <button id="theme-toggle" class="p-2.5 text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition" aria-label="Toggle theme">
+                        <i data-feather="moon" class="hidden dark:block w-[18px] h-[18px]"></i>
+                        <i data-feather="sun" class="dark:hidden w-[18px] h-[18px]"></i>
+                    </button>
+                    <a href="{% url 'accounts:login' %}" class="p-2.5 text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">
+                        <i data-feather="user" class="w-[18px] h-[18px]"></i>
+                    </a>
+                    <a href="#" class="relative p-2.5 text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">
+                        <i data-feather="shopping-bag" class="w-[18px] h-[18px]"></i>
+                        <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-accent-500 rounded-full"></span>
+                    </a>
+                    <button class="md:hidden p-2.5 text-ink-700 dark:text-ink-300">
+                        <i data-feather="menu" class="w-[18px] h-[18px]"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Categories Page Content -->
-    <main class="py-8">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-8">Browse Categories</h1>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Electronics -->
-                <a href="products.html?category=electronics" id="electronics" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                    <img src="http://static.photos/technology/1200x630/1" alt="Electronics" class="h-full w-full object-cover">
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Electronics</h2>
-                        <p class="text-gray-200">Smartphones, Laptops, TVs & more</p>
-                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
-                            <span>Shop Now</span>
-                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
-                        </div>
+    <!-- Page Header -->
+    <section class="border-b hairline">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-14 lg:pt-20 pb-12 lg:pb-16">
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-xs text-ink-500 dark:text-ink-400 mb-10">
+                <a href="{% url 'core:home' %}" class="hover:text-ink-900 dark:hover:text-ink-100 transition">Index</a>
+                <span>/</span>
+                <span class="text-ink-900 dark:text-ink-100">Categories</span>
+            </nav>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-end">
+                <div class="lg:col-span-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-8 h-px bg-ink-400"></span>
+                        <span class="text-xs uppercase tracking-[0.25em] text-ink-500 dark:text-ink-400">Six departments · Fifty-three rooms</span>
                     </div>
-                </a>
-                
-                <!-- Fashion -->
-                <a href="products.html?category=fashion" id="fashion" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                    <img src="http://static.photos/fashion/1200x630/1" alt="Fashion" class="h-full w-full object-cover">
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Fashion</h2>
-                        <p class="text-gray-200">Clothing, Shoes, Accessories & more</p>
-                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
-                            <span>Shop Now</span>
-                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
-                        </div>
-                    </div>
-                </a>
-                
-                <!-- Home & Garden -->
-                <a href="products.html?category=home" id="home" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                    <img src="http://static.photos/home/1200x630/1" alt="Home & Garden" class="h-full w-full object-cover">
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Home & Garden</h2>
-                        <p class="text-gray-200">Furniture, Decor, Kitchen & more</p>
-                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
-                            <span>Shop Now</span>
-                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
-                        </div>
-                    </div>
-                </a>
-                
-                <!-- Beauty -->
-                <a href="products.html?category=beauty" id="beauty" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                    <img src="http://static.photos/beauty/1200x630/1" alt="Beauty" class="h-full w-full object-cover">
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Beauty</h2>
-                        <p class="text-gray-200">Skincare, Makeup, Fragrances & more</p>
-                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
-                            <span>Shop Now</span>
-                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
-                        </div>
-                    </div>
-                </a>
-                
-                <!-- Sports -->
-                <a href="products.html?category=sports" id="sports" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                    <img src="http://static.photos/sport/1200x630/1" alt="Sports" class="h-full w-full object-cover">
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Sports</h2>
-                        <p class="text-gray-200">Fitness, Outdoor, Team Sports & more</p>
-                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
-                            <span>Shop Now</span>
-                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
-                        </div>
-                    </div>
-                </a>
-                
-                <!-- Toys -->
-                <a href="products.html?category=toys" id="toys" class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 h-64 shadow-sm hover:shadow-md transition duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                    <img src="http://static.photos/toys/1200x630/1" alt="Toys" class="h-full w-full object-cover">
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Toys</h2>
-                        <p class="text-gray-200">Games, Collectibles, Kids & more</p>
-                        <div class="mt-4 flex items-center text-white group-hover:translate-x-2 transition duration-300">
-                            <span>Shop Now</span>
-                            <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <!-- Subcategories -->
-            <div class="mt-16">
-                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">Shop by Subcategory</h2>
-                
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    <a href="products.html?subcategory=smartphones" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="smartphone" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Smartphones</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=laptops" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="laptop" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Laptops</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=tvs" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="tv" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">TVs</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=men" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="user" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Men's Fashion</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=women" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="users" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Women's Fashion</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=furniture" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="box" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Furniture</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=kitchen" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="utensils" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Kitchen</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=skincare" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="droplet" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Skincare</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=fitness" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="activity" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Fitness</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=outdoor" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="map" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Outdoor</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=boardgames" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="grid" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Board Games</h3>
-                    </a>
-                    
-                    <a href="products.html?subcategory=collectibles" class="bg-white dark:bg-gray-700 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition duration-300">
-                        <div class="bg-gray-100 dark:bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
-                            <i data-feather="star" class="text-primary-500 dark:text-primary-400"></i>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-800 dark:text-white">Collectibles</h3>
-                    </a>
+                    <h1 class="serif-display text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tightest text-ink-950 dark:text-ink-50">
+                        The catalogue,<br><em class="italic text-ink-500 dark:text-ink-400">arranged by</em> intent.
+                    </h1>
+                </div>
+                <div class="lg:col-span-4 lg:pl-8">
+                    <p class="text-ink-600 dark:text-ink-400 leading-relaxed text-sm max-w-sm">
+                        Everything we make and everything we've chosen to carry, organised the way we shop it ourselves — by the shape of the day you're trying to build.
+                    </p>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Main -->
+    <main>
+        <!-- Primary Categories -->
+        <section>
+            <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
+                <div class="flex items-end justify-between mb-10">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.25em] text-ink-500 dark:text-ink-400 mb-3">— Departments</p>
+                        <h2 class="serif-display text-3xl lg:text-4xl text-ink-950 dark:text-ink-50">Start somewhere.</h2>
+                    </div>
+                    <div class="hidden md:flex items-center gap-6 text-xs text-ink-500 dark:text-ink-400">
+                        <span>Sort</span>
+                        <button class="text-ink-900 dark:text-ink-100 underline underline-offset-4 decoration-ink-300 dark:decoration-ink-600">Curated</button>
+                        <button class="hover:text-ink-900 dark:hover:text-ink-100 transition">A–Z</button>
+                        <button class="hover:text-ink-900 dark:hover:text-ink-100 transition">Recently added</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-3 lg:gap-4">
+                    <!-- Electronics — large tile -->
+                    <a href="products.html?category=electronics" id="electronics" class="group relative md:col-span-4 md:row-span-2 overflow-hidden bg-ink-100 dark:bg-ink-900 aspect-[4/3] md:aspect-auto img-zoom">
+                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=1400&auto=format&fit=crop&q=80" alt="Electronics" class="absolute inset-0 h-full w-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20"></div>
+                        <div class="absolute top-6 left-6 right-6 flex items-start justify-between text-white">
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">Dept. 01</span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">128 items</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-10 text-white">
+                            <h3 class="serif-display text-4xl lg:text-6xl mb-3">Electronics</h3>
+                            <p class="text-white/80 max-w-md text-sm mb-6">Devices we've tested against our own desks — phones, notebooks, and quiet home cinema.</p>
+                            <span class="inline-flex items-center gap-2 text-sm border-b border-white/60 pb-1 group-hover:gap-3 transition-all">
+                                Enter department <i data-feather="arrow-right" class="w-4 h-4"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Fashion -->
+                    <a href="products.html?category=fashion" id="fashion" class="group relative md:col-span-2 overflow-hidden bg-ink-100 dark:bg-ink-900 aspect-[4/3] md:aspect-auto img-zoom">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=80" alt="Fashion" class="absolute inset-0 h-full w-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+                        <div class="absolute top-5 left-5 right-5 flex items-start justify-between text-white">
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">Dept. 02</span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">96 items</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 lg:p-6 text-white">
+                            <h3 class="serif-display text-3xl mb-1">Fashion</h3>
+                            <p class="text-white/75 text-xs">Clothing, footwear, and quiet accessories.</p>
+                        </div>
+                    </a>
+
+                    <!-- Home & Garden -->
+                    <a href="products.html?category=home" id="home" class="group relative md:col-span-2 overflow-hidden bg-ink-100 dark:bg-ink-900 aspect-[4/3] md:aspect-auto img-zoom">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&fit=crop&q=80" alt="Home & Garden" class="absolute inset-0 h-full w-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+                        <div class="absolute top-5 left-5 right-5 flex items-start justify-between text-white">
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">Dept. 03</span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">74 items</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 lg:p-6 text-white">
+                            <h3 class="serif-display text-3xl mb-1">Home & Garden</h3>
+                            <p class="text-white/75 text-xs">Furniture, kitchen, and outside things.</p>
+                        </div>
+                    </a>
+
+                    <!-- Beauty -->
+                    <a href="products.html?category=beauty" id="beauty" class="group relative md:col-span-2 overflow-hidden bg-ink-100 dark:bg-ink-900 aspect-[4/3] md:aspect-auto img-zoom">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80" alt="Beauty" class="absolute inset-0 h-full w-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+                        <div class="absolute top-5 left-5 right-5 flex items-start justify-between text-white">
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">Dept. 04</span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">51 items</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 lg:p-6 text-white">
+                            <h3 class="serif-display text-3xl mb-1">Apothecary</h3>
+                            <p class="text-white/75 text-xs">Skincare, scent, and small rituals.</p>
+                        </div>
+                    </a>
+
+                    <!-- Sports -->
+                    <a href="products.html?category=sports" id="sports" class="group relative md:col-span-2 overflow-hidden bg-ink-100 dark:bg-ink-900 aspect-[4/3] md:aspect-auto img-zoom">
+                        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&auto=format&fit=crop&q=80" alt="Sports" class="absolute inset-0 h-full w-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+                        <div class="absolute top-5 left-5 right-5 flex items-start justify-between text-white">
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">Dept. 05</span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">42 items</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 lg:p-6 text-white">
+                            <h3 class="serif-display text-3xl mb-1">Sport</h3>
+                            <p class="text-white/75 text-xs">For a movement practice, indoor or out.</p>
+                        </div>
+                    </a>
+
+                    <!-- Toys -->
+                    <a href="products.html?category=toys" id="toys" class="group relative md:col-span-2 overflow-hidden bg-ink-100 dark:bg-ink-900 aspect-[4/3] md:aspect-auto img-zoom">
+                        <img src="https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=800&auto=format&fit=crop&q=80" alt="Toys" class="absolute inset-0 h-full w-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+                        <div class="absolute top-5 left-5 right-5 flex items-start justify-between text-white">
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">Dept. 06</span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] opacity-80">38 items</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 lg:p-6 text-white">
+                            <h3 class="serif-display text-3xl mb-1">Play</h3>
+                            <p class="text-white/75 text-xs">Games, puzzles, and quiet collectibles.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider quote -->
+        <section class="border-y hairline bg-ink-100/50 dark:bg-ink-900/30">
+            <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-14 lg:py-20">
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-2">
+                        <p class="text-xs uppercase tracking-[0.25em] text-ink-500 dark:text-ink-400">— Note</p>
+                    </div>
+                    <div class="lg:col-span-8">
+                        <p class="serif-display text-2xl md:text-3xl lg:text-4xl leading-snug text-ink-900 dark:text-ink-100">
+                            "We'd rather carry fifty things we love than five hundred we can only tolerate. Every entry in this catalogue has passed through a real desk, a real kitchen, a real week."
+                        </p>
+                    </div>
+                    <div class="lg:col-span-2 lg:text-right">
+                        <p class="text-xs text-ink-500 dark:text-ink-400">Studio Notes<br>Vol. 04</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subcategories: Index-style list -->
+        <section>
+            <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+                <div class="grid lg:grid-cols-12 gap-10 mb-14">
+                    <div class="lg:col-span-5">
+                        <p class="text-xs uppercase tracking-[0.25em] text-ink-500 dark:text-ink-400 mb-4">— Directory</p>
+                        <h2 class="serif-display text-3xl lg:text-5xl leading-[1.05] text-ink-950 dark:text-ink-50">
+                            Or narrow it,<br><em class="italic text-ink-500 dark:text-ink-400">room by room.</em>
+                        </h2>
+                    </div>
+                    <div class="lg:col-span-4 lg:col-start-8 self-end">
+                        <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">
+                            Twelve of the most-visited sub-directories, updated weekly. The full index lives inside each department.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-ink-200 dark:bg-ink-800 border hairline">
+                    <a href="products.html?subcategory=smartphones" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="smartphone" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">01</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Smartphones</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">24 items</p>
+                    </a>
+                    <a href="products.html?subcategory=laptops" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="monitor" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">02</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Notebooks</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">18 items</p>
+                    </a>
+                    <a href="products.html?subcategory=tvs" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="tv" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">03</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Television</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">12 items</p>
+                    </a>
+                    <a href="products.html?subcategory=men" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="user" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">04</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Menswear</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">36 items</p>
+                    </a>
+                    <a href="products.html?subcategory=women" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="users" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">05</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Womenswear</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">42 items</p>
+                    </a>
+                    <a href="products.html?subcategory=furniture" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="box" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">06</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Furniture</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">28 items</p>
+                    </a>
+                    <a href="products.html?subcategory=kitchen" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="coffee" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">07</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Kitchen</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">33 items</p>
+                    </a>
+                    <a href="products.html?subcategory=skincare" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="droplet" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">08</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Skincare</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">19 items</p>
+                    </a>
+                    <a href="products.html?subcategory=fitness" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="activity" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">09</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Fitness</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">22 items</p>
+                    </a>
+                    <a href="products.html?subcategory=outdoor" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="map" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">10</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Outdoor</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">17 items</p>
+                    </a>
+                    <a href="products.html?subcategory=boardgames" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="grid" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">11</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Board Games</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">14 items</p>
+                    </a>
+                    <a href="products.html?subcategory=collectibles" class="sub-tile group bg-ink-50 dark:bg-ink-950 hover:bg-white dark:hover:bg-ink-900 p-6 lg:p-7">
+                        <div class="flex items-start justify-between mb-8">
+                            <i data-feather="star" class="w-5 h-5 text-ink-700 dark:text-ink-300 group-hover:text-ink-950 dark:group-hover:text-ink-50 transition"></i>
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400">12</span>
+                        </div>
+                        <h3 class="text-sm text-ink-900 dark:text-ink-100 mb-1">Collectibles</h3>
+                        <p class="text-xs text-ink-500 dark:text-ink-400">9 items</p>
+                    </a>
+                </div>
+
+                <div class="mt-12 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <p class="text-xs text-ink-500 dark:text-ink-400">Showing 12 of 53 sub-directories.</p>
+                    <a href="{% url 'products:products_list' %}" class="inline-flex items-center gap-3 text-sm text-ink-900 dark:text-ink-100 border-b hairline border-ink-900 dark:border-ink-100 pb-1 hover:gap-4 transition-all">
+                        Browse the full catalogue <i data-feather="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Help / Concierge -->
+        <section class="border-t hairline bg-ink-900 dark:bg-ink-100 text-ink-50 dark:text-ink-900">
+            <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-20 lg:py-24">
+                <div class="grid lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-7">
+                        <p class="text-xs uppercase tracking-[0.25em] text-ink-400 dark:text-ink-600 mb-6">— Assistance</p>
+                        <h2 class="serif-display text-4xl lg:text-5xl leading-[1.05] text-ink-50 dark:text-ink-900">
+                            Not sure where to begin?<br><em class="italic text-ink-400 dark:text-ink-600">Speak with a person.</em>
+                        </h2>
+                    </div>
+                    <div class="lg:col-span-4 lg:col-start-9">
+                        <p class="text-ink-400 dark:text-ink-600 leading-relaxed mb-8">
+                            Our concierge team knows every product on the shelf. They'll suggest three things for your situation — no more, no less.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <a href="#" class="inline-flex items-center justify-center gap-3 bg-ink-50 dark:bg-ink-900 text-ink-900 dark:text-ink-50 px-6 py-3.5 text-sm font-medium hover:bg-white dark:hover:bg-black transition">
+                                Start a conversation
+                                <i data-feather="arrow-up-right" class="w-4 h-4"></i>
+                            </a>
+                            <a href="#" class="inline-flex items-center justify-center gap-2 text-sm text-ink-300 dark:text-ink-700 hover:text-ink-50 dark:hover:text-ink-900 px-6 py-3.5 transition">
+                                Read the FAQ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">ShopSphere</h3>
-                    <p class="mb-4">Your one-stop shop for all the latest products and trends.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="facebook"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="youtube"></i>
-                        </a>
+    <footer class="border-t hairline bg-ink-50 dark:bg-ink-950">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+            <div class="grid grid-cols-2 lg:grid-cols-12 gap-10">
+                <div class="col-span-2 lg:col-span-5">
+                    <a href="{% url 'core:home' %}" class="serif-display text-3xl text-ink-950 dark:text-ink-50">Shopsphere</a>
+                    <p class="text-ink-600 dark:text-ink-400 mt-4 max-w-sm text-sm leading-relaxed">
+                        A small studio and shop for things worth keeping. Based in San Francisco, shipping worldwide.
+                    </p>
+                    <div class="flex items-center gap-1 mt-6">
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="instagram" class="w-4 h-4"></i></a>
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="twitter" class="w-4 h-4"></i></a>
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="youtube" class="w-4 h-4"></i></a>
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="facebook" class="w-4 h-4"></i></a>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Shop</h3>
-                    <ul class="space-y-2">
-                        <li><a href="products.html" class="hover:text-white">All Products</a></li>
-                        <li><a href="categories.html" class="hover:text-white">Categories</a></li>
-                        <li><a href="#" class="hover:text-white">Deals</a></li>
-                        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+
+                <div class="lg:col-span-2 lg:col-start-7">
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-ink-500 mb-5">Shop</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="products.html" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">All Products</a></li>
+                        <li><a href="{% url 'core:categories' %}" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Categories</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">New Arrivals</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Gift Cards</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Help</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-white">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white">Shipping</a></li>
-                        <li><a href="#" class="hover:text-white">Returns</a></li>
-                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+
+                <div class="lg:col-span-2">
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-ink-500 mb-5">Help</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">FAQ</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Shipping</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Returns</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Contact</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Contact</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-center">
-                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
-                            <span>contact@shopsphere.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
-                            <span>+1 (800) 123-4567</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="map-pin" class="mr-2 w-4 h-4"></i>
-                            <span>123 Main St, San Francisco, CA</span>
-                        </li>
-                    </ul>
+
+                <div class="lg:col-span-3">
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-ink-500 mb-5">Studio</h4>
+                    <address class="not-italic text-sm text-ink-700 dark:text-ink-300 space-y-2 leading-relaxed">
+                        <p>123 Main Street<br>San Francisco, CA 94102</p>
+                        <p><a href="mailto:hello@shopsphere.com" class="hover:text-ink-950 dark:hover:text-ink-50 transition">hello@shopsphere.com</a></p>
+                        <p>+1 (800) 123 4567</p>
+                    </address>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p>&copy; 2023 ShopSphere. All rights reserved.</p>
+
+            <div class="border-t hairline mt-16 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-ink-500">
+                <p>© 2024 Shopsphere Studio. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-ink-900 dark:hover:text-ink-100 transition">Privacy</a>
+                    <a href="#" class="hover:text-ink-900 dark:hover:text-ink-100 transition">Terms</a>
+                    <a href="#" class="hover:text-ink-900 dark:hover:text-ink-100 transition">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Dark mode toggle
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
-        
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-        });
-        
-        // Check for saved theme preference
+
         if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
         } else {
             html.classList.remove('dark');
         }
-        
-        // Feather icons
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            feather.replace();
+        });
+
         feather.replace();
     </script>
 </body>

@@ -1,250 +1,389 @@
-<!DOCTYPE html>
-<html lang="en" class="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart | ShopSphere</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            500: '#0d9488',
-                            600: '#0f766e',
-                        },
-                        secondary: {
-                            500: '#f59e0b',
-                            600: '#d97706',
-                        }
+{% load static %}
+
+{% block content %}
+<!-- CDN Assets & Typography Configuration -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                    mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+                },
+                colors: {
+                    ink: {
+                        50: '#fbfbf9',
+                        100: '#f5f5f2',
+                        200: '#e8e8e2',
+                        300: '#d5d5cc',
+                        400: '#a8a89a',
+                        500: '#7c7c6e',
+                        600: '#58584d',
+                        700: '#3f3f37',
+                        800: '#262621',
+                        900: '#171714',
+                        950: '#0d0d0b',
+                    },
+                    accent: {
+                        500: '#c2410c',
+                        600: '#9a3412',
                     }
                 }
             }
         }
-    </script>
-</head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center space-x-2">
-                <i data-feather="shopping-bag" class="text-primary-500 dark:text-primary-400"></i>
-                <span class="text-xl font-bold text-gray-800 dark:text-white">ShopSphere</span>
+    }
+</script>
+
+<style>
+    .font-serif-italic {
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-style: italic;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
+<div class="bg-ink-50 dark:bg-ink-950 text-ink-900 dark:text-ink-100 font-sans antialiased min-h-screen flex flex-col selection:bg-stone-200 dark:selection:bg-stone-800 transition-colors duration-300">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-ink-50/85 dark:bg-ink-950/85 border-b border-ink-200/70 dark:border-ink-800/70 transition-colors">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+
+            <!-- Brand Logo -->
+            <a href="{% url 'core:home' %}" class="group inline-flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-full bg-ink-900 dark:bg-ink-100 text-ink-50 dark:text-ink-900 flex items-center justify-center transition-transform group-hover:scale-105 duration-300">
+                    <i data-feather="shopping-bag" class="w-4 h-4"></i>
+                </span>
+                <span class="text-xl font-semibold tracking-tight uppercase text-ink-950 dark:text-ink-50 font-mono">
+                    ShopSphere
+                </span>
             </a>
 
-            <nav class="hidden md:flex space-x-8">
-                <a href="products.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Products</a>
-                <a href="categories.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Categories</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Deals</a>
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="{% url 'products:products_list' %}" class="text-xs uppercase tracking-[0.15em] font-medium text-ink-600 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-100 transition-colors">
+                    Products
+                </a>
+                <a href="#" class="text-xs uppercase tracking-[0.15em] font-medium text-ink-600 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-100 transition-colors">
+                    Categories
+                </a>
+                <a href="#" class="text-xs uppercase tracking-[0.15em] font-medium text-ink-600 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-100 transition-colors">
+                    Deals
+                </a>
             </nav>
 
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="moon" class="hidden dark:block"></i>
-                    <i data-feather="sun" class="dark:hidden"></i>
+            <!-- Utility Controls -->
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" class="w-10 h-10 rounded-full border border-ink-200 dark:border-ink-800 flex items-center justify-center text-ink-600 dark:text-ink-400 hover:bg-ink-100 dark:hover:bg-ink-900 hover:text-ink-950 dark:hover:text-ink-100 transition-all" aria-label="Toggle Theme">
+                    <i data-feather="moon" class="w-4 h-4 hidden dark:block"></i>
+                    <i data-feather="sun" class="w-4 h-4 dark:hidden"></i>
                 </button>
-                <a href="user-dashboard.html" class="p-2 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-500 dark:text-primary-400">
-                    <i data-feather="user"></i>
+
+                <a href="#" class="w-10 h-10 rounded-full border border-ink-200 dark:border-ink-800 flex items-center justify-center text-ink-600 dark:text-ink-400 hover:bg-ink-100 dark:hover:bg-ink-900 hover:text-ink-950 dark:hover:text-ink-100 transition-all" aria-label="User Account">
+                    <i data-feather="user" class="w-4 h-4"></i>
                 </a>
-                <button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="menu"></i>
-                </button>
             </div>
         </div>
     </header>
 
-    <main class="py-12">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8">Your Shopping Cart (2 Items)</h1>
+    <!-- Main Content Area -->
+    <main class="py-12 sm:py-16 flex-grow">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                        <div class="flex-shrink-0 w-full md:w-32 h-32 overflow-hidden rounded-lg mr-6">
-                            <img src="https://via.placeholder.com/150x150?text=Product+Image" alt="Smartwatch X1" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex-1 mt-4 md:mt-0">
-                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">Smartwatch X1 Pro</h2>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Color: Black | Size: 44mm</p>
-
-                            <div class="flex items-center justify-between">
-                                <span class="text-lg font-bold text-primary-600 dark:text-primary-400">$199.99</span>
-
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-md">
-                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                                            <i data-feather="minus" class="w-4 h-4"></i>
-                                        </button>
-                                        <input type="text" value="1" class="w-10 text-center bg-transparent focus:outline-none text-gray-900 dark:text-white">
-                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                                            <i data-feather="plus" class="w-4 h-4"></i>
-                                        </button>
-                                    </div>
-                                    <button class="text-red-500 hover:text-red-700 p-1">
-                                        <i data-feather="trash-2" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Page Header -->
+            <div class="mb-10 sm:mb-12 border-b border-ink-200/80 dark:border-ink-800/80 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-accent-500"></span>
+                        <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink-500 dark:text-ink-400">Order Stage 01</span>
                     </div>
-
-                    <div class="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                        <div class="flex-shrink-0 w-full md:w-32 h-32 overflow-hidden rounded-lg mr-6">
-                            <img src="https://via.placeholder.com/150x150?text=Product+Image" alt="Wireless Earbuds" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex-1 mt-4 md:mt-0">
-                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">Noise-Cancelling Wireless Earbuds</h2>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Color: White | Gen: 2</p>
-
-                            <div class="flex items-center justify-between">
-                                <span class="text-lg font-bold text-primary-600 dark:text-primary-400">$79.50</span>
-
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-md">
-                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                                            <i data-feather="minus" class="w-4 h-4"></i>
-                                        </button>
-                                        <input type="text" value="2" class="w-10 text-center bg-transparent focus:outline-none text-gray-900 dark:text-white">
-                                        <button class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                                            <i data-feather="plus" class="w-4 h-4"></i>
-                                        </button>
-                                    </div>
-                                    <button class="text-red-500 hover:text-red-700 p-1">
-                                        <i data-feather="trash-2" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="{% url 'core:home' %}" class="flex items-center text-primary-500 hover:text-primary-600 font-medium mt-6">
-                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                        Continue Shopping
-                    </a>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-ink-950 dark:text-ink-50 font-normal">
+                        Your Shopping Cart <span class="font-serif-italic text-ink-400 dark:text-ink-600">— Manifest</span>
+                    </h1>
                 </div>
 
-                <div class="lg:col-span-1">
-                    <div class="sticky top-20 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 space-y-6">
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-4">Order Summary</h2>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-mono uppercase tracking-wider text-ink-500 dark:text-ink-400">Total Count:</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-ink-100 dark:bg-ink-900 border border-ink-200 dark:border-ink-800 text-ink-900 dark:text-ink-100">
+                        {{ cart.total_items|default:"0" }} Units
+                    </span>
+                </div>
+            </div>
 
-                        <div class="space-y-3">
-                            <div class="flex justify-between text-gray-700 dark:text-gray-300">
-                                <span>Subtotal (3 Items)</span>
-                                <span class="font-medium">$358.99</span>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+
+                <!-- Left Column: Item Ledger (8 cols) -->
+                <div class="lg:col-span-8 space-y-4">
+
+                    {% if items %}
+                        <div class="space-y-4">
+                            {% for item in items %}
+                            <div class="group relative bg-white dark:bg-ink-900/60 rounded-2xl border border-ink-200/80 dark:border-ink-800/80 p-4 sm:p-6 transition-all duration-300 hover:border-ink-400/80 dark:hover:border-ink-600">
+
+                                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+
+                                    <!-- Product Thumbnail Frame (4:5 / 1:1 ratio) -->
+                                    <div class="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 overflow-hidden rounded-xl bg-ink-100 dark:bg-ink-800 border border-ink-200/60 dark:border-ink-800/60">
+                                        <a href="{{ item.product.get_absolute_url }}" class="block w-full h-full">
+                                            {% if item.product.image %}
+                                                <img src="{{ item.product.image.url }}"
+                                                     alt="{{ item.product.title }}"
+                                                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out">
+                                            {% else %}
+                                                <img src="https://via.placeholder.com/150x150?text=No+Image"
+                                                     alt="No Image"
+                                                     class="w-full h-full object-cover opacity-60">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+
+                                    <!-- Item Metadata -->
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-4 mb-2">
+                                            <div>
+                                                <a href="{{ item.product.get_absolute_url }}" class="group/title">
+                                                    <h2 class="text-base sm:text-lg font-medium text-ink-950 dark:text-ink-50 group-hover/title:text-accent-500 dark:group-hover/title:text-accent-500 transition-colors">
+                                                        {{ item.product.title }}
+                                                    </h2>
+                                                </a>
+                                                {% if item.product.description %}
+                                                    <p class="text-xs text-ink-500 dark:text-ink-400 line-clamp-1 mt-0.5 leading-relaxed font-normal">
+                                                        {{ item.product.description|truncatewords:10 }}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                            <!-- Unit Price -->
+                                            <div class="text-left sm:text-right mt-1 sm:mt-0">
+                                                <span class="text-xs font-mono uppercase tracking-wider text-ink-400 dark:text-ink-500 block sm:inline">Price: </span>
+                                                <span class="text-sm font-mono font-medium text-ink-900 dark:text-ink-100">
+                                                    ${{ item.product.price }}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Quantity Stepper, Total, and Remove Form -->
+                                        <div class="pt-3 mt-3 border-t border-ink-100 dark:border-ink-800/60 flex flex-wrap items-center justify-between gap-4">
+
+                                            <!-- Stepper Form -->
+                                            <form method="POST" action="{% url 'cart:update_cart_item' item.id %}" class="inline-flex items-center rounded-lg border border-ink-200 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-950/50 p-0.5 shadow-sm">
+                                                {% csrf_token %}
+                                                <button type="submit" name="action" value="decrement" class="w-8 h-8 flex items-center justify-center rounded-md text-ink-500 hover:text-ink-950 dark:text-ink-400 dark:hover:text-white hover:bg-white dark:hover:bg-ink-800 transition-all duration-150" aria-label="Decrease quantity">
+                                                    <i data-feather="minus" class="w-3.5 h-3.5"></i>
+                                                </button>
+
+                                                <input type="text" name="quantity" value="{{ item.quantity }}" readonly class="w-10 text-center font-mono text-xs font-semibold bg-transparent focus:outline-none text-ink-900 dark:text-ink-100 select-none">
+
+                                                <button type="submit" name="action" value="increment" class="w-8 h-8 flex items-center justify-center rounded-md text-ink-500 hover:text-ink-950 dark:text-ink-400 dark:hover:text-white hover:bg-white dark:hover:bg-ink-800 transition-all duration-150" aria-label="Increase quantity">
+                                                    <i data-feather="plus" class="w-3.5 h-3.5"></i>
+                                                </button>
+                                            </form>
+
+                                            <!-- Subtotal Calculation & Remove Action -->
+                                            <div class="flex items-center gap-5">
+                                                <div class="text-right">
+                                                    <span class="text-[10px] font-mono uppercase tracking-widest text-ink-400 block">Subtotal</span>
+                                                    <span class="text-base font-mono font-semibold text-ink-950 dark:text-ink-50">
+                                                        ${{ item.subtotal }}
+                                                    </span>
+                                                </div>
+
+                                                <form method="POST" action="{% url 'cart:remove_cart_item' item.id %}" class="inline-flex">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="w-8 h-8 rounded-full flex items-center justify-center text-ink-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors" aria-label="Remove item" title="Remove item">
+                                                        <i data-feather="trash-2" class="w-4 h-4"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex justify-between text-gray-700 dark:text-gray-300">
-                                <span>Shipping Estimate</span>
-                                <span class="font-medium">$10.00</span>
-                            </div>
-                            <div class="flex justify-between text-gray-700 dark:text-gray-300">
-                                <span>Tax Estimate (8%)</span>
-                                <span class="font-medium">$28.72</span>
-                            </div>
-                            <div class="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                                <span class="text-xl font-bold text-gray-900 dark:text-white">Order Total</span>
-                                <span class="text-xl font-bold text-primary-600 dark:text-primary-400">$397.71</span>
-                            </div>
+                            {% endfor %}
                         </div>
-
-                        <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                            <label for="coupon" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Apply Coupon</label>
-                            <div class="flex space-x-2">
-                                <input type="text" id="coupon" placeholder="CODE10" class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm">
-                                <button class="px-4 py-2 text-sm font-medium text-white bg-secondary-500 hover:bg-secondary-600 rounded-md transition duration-300">
-                                    Apply
-                                </button>
+                    {% else %}
+                        <!-- Architectural Empty Cart State -->
+                        <div class="bg-white dark:bg-ink-900/40 rounded-3xl border border-dashed border-ink-300 dark:border-ink-800 p-12 sm:p-16 text-center">
+                            <div class="w-14 h-14 mx-auto mb-5 rounded-full bg-ink-100 dark:bg-ink-800 flex items-center justify-center text-ink-400 dark:text-ink-500">
+                                <i data-feather="shopping-bag" class="w-6 h-6"></i>
                             </div>
+                            <h3 class="text-2xl font-serif text-ink-950 dark:text-ink-100 mb-2 italic">
+                                Your manifest is currently empty
+                            </h3>
+                            <p class="text-xs text-ink-500 dark:text-ink-400 max-w-sm mx-auto leading-relaxed mb-6 font-normal">
+                                Looks like you haven't reserved any items for this curation session.
+                            </p>
+                            <a href="{% url 'products:products_list' %}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-ink-900 hover:bg-ink-800 dark:bg-ink-100 dark:hover:bg-ink-200 text-ink-50 dark:text-ink-900 text-xs font-medium uppercase tracking-wider transition-all duration-300 shadow-sm">
+                                <span>Browse Catalog</span>
+                                <i data-feather="arrow-right" class="w-4 h-4"></i>
+                            </a>
                         </div>
+                    {% endif %}
 
-                        <a href="checkout.html" class="w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-300 mt-6">
-                            Proceed to Checkout
+                    <!-- Back Navigation Link -->
+                    <div class="pt-4">
+                        <a href="{% url 'products:products_list' %}" class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-ink-500 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-100 transition-colors group">
+                            <i data-feather="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1"></i>
+                            <span>Continue Shopping</span>
                         </a>
                     </div>
                 </div>
+
+                <!-- Right Column: Financial Ledger & Summary (4 cols) -->
+                <div class="lg:col-span-4">
+                    <div class="sticky top-28 space-y-6">
+
+                        <div class="bg-white dark:bg-ink-900/60 rounded-3xl border border-ink-200/80 dark:border-ink-800/80 p-6 sm:p-8 shadow-sm">
+                            <div class="flex items-center justify-between border-b border-ink-200/80 dark:border-ink-800/80 pb-4 mb-6">
+                                <h2 class="text-lg font-serif text-ink-950 dark:text-ink-50">
+                                    Summary <span class="font-serif-italic text-ink-400">Ledger</span>
+                                </h2>
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-ink-400">USD</span>
+                            </div>
+
+                            <!-- Cost Breakdown -->
+                            <div class="space-y-3.5 text-xs">
+                                <div class="flex justify-between items-baseline text-ink-600 dark:text-ink-400">
+                                    <span class="font-normal">Subtotal ({{ cart.total_items|default:"0" }} Items)</span>
+                                    <span class="font-mono font-medium text-ink-900 dark:text-ink-100">${{ cart.total_price|floatformat:2 }}</span>
+                                </div>
+
+                                <div class="flex justify-between items-baseline text-ink-600 dark:text-ink-400">
+                                    <span class="font-normal">Shipping Estimate</span>
+                                    <span class="font-mono font-medium text-ink-900 dark:text-ink-100">${{ shipping_estimate|default:"10.00" }}</span>
+                                </div>
+
+                                <div class="flex justify-between items-baseline text-ink-600 dark:text-ink-400">
+                                    <span class="font-normal">Tax Estimate ({{ tax_rate|default:"8" }}%)</span>
+                                    <span class="font-mono font-medium text-ink-900 dark:text-ink-100">${{ tax_amount|floatformat:2 }}</span>
+                                </div>
+
+                                <div class="pt-4 mt-4 border-t border-ink-200/80 dark:border-ink-800/80 flex justify-between items-baseline">
+                                    <span class="text-sm font-medium text-ink-950 dark:text-ink-50">Estimated Total</span>
+                                    <span class="text-2xl font-mono font-bold tracking-tight text-ink-950 dark:text-ink-50">
+                                        ${{ order_total|floatformat:2 }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Voucher / Coupon Module -->
+                            <div class="mt-8 pt-6 border-t border-ink-200/80 dark:border-ink-800/80">
+                                <label for="coupon" class="block text-[11px] font-mono uppercase tracking-wider text-ink-500 dark:text-ink-400 mb-2.5">
+                                    Promotional Certificate
+                                </label>
+                                <div class="flex gap-2">
+                                    <input type="text"
+                                           id="coupon"
+                                           placeholder="CODE10"
+                                           class="w-full px-3.5 py-2.5 bg-ink-50 dark:bg-ink-950 border border-ink-200 dark:border-ink-800 rounded-xl text-xs font-mono uppercase tracking-wider text-ink-900 dark:text-ink-100 placeholder-ink-400 focus:outline-none focus:border-ink-900 dark:focus:border-ink-100 transition-colors">
+                                    <button type="button" class="px-4 py-2.5 text-xs font-medium uppercase tracking-wider rounded-xl border border-ink-200 dark:border-ink-700 bg-ink-100 dark:bg-ink-800 text-ink-900 dark:text-ink-100 hover:bg-ink-200 dark:hover:bg-ink-700 transition-all">
+                                        Apply
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Primary Checkout Action -->
+                            <div class="mt-6">
+                                <a href="#" class="group w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-ink-900 hover:bg-ink-800 dark:bg-ink-100 dark:hover:bg-ink-200 text-ink-50 dark:text-ink-900 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-300 shadow-md shadow-ink-950/10">
+                                    <span>Proceed to Checkout</span>
+                                    <i data-feather="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                                </a>
+                            </div>
+
+                            <!-- Guarantee micro-copy -->
+                            <div class="mt-4 flex items-center justify-center gap-2 text-[11px] font-mono text-ink-400 dark:text-ink-500">
+                                <i data-feather="shield" class="w-3.5 h-3.5"></i>
+                                <span>Encrypted 256-bit Checkout</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
 
-    <footer class="bg-gray-800 text-gray-300 py-12 mt-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">ShopSphere</h3>
-                    <p class="mb-4">Your one-stop shop for all the latest products and trends.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="facebook"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <i data-feather="youtube"></i>
-                        </a>
-                    </div>
+    <!-- Editorial Minimal Footer -->
+    <footer class="border-t border-ink-200/80 dark:border-ink-800/80 bg-white/50 dark:bg-ink-900/30 text-ink-600 dark:text-ink-400 py-12 sm:py-16 mt-20 transition-colors">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
+                <div class="space-y-3">
+                    <span class="text-sm font-semibold tracking-tight uppercase font-mono text-ink-950 dark:text-ink-50">
+                        ShopSphere
+                    </span>
+                    <p class="text-xs leading-relaxed text-ink-500 dark:text-ink-400 font-normal">
+                        A curated archive of considered goods designed with quiet luxury and enduring relevance.
+                    </p>
                 </div>
                 <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Shop</h3>
-                    <ul class="space-y-2">
-                        <li><a href="products.html" class="hover:text-white">All Products</a></li>
-                        <li><a href="categories.html" class="hover:text-white">Categories</a></li>
-                        <li><a href="#" class="hover:text-white">Deals</a></li>
+                    <h3 class="text-xs font-mono uppercase tracking-widest text-ink-950 dark:text-ink-100 mb-3">Shop</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="{% url 'products:products_list' %}" class="hover:text-ink-950 dark:hover:text-white transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-ink-950 dark:hover:text-white transition-colors">Categories</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Help</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-white">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white">Shipping</a></li>
-                        <li><a href="#" class="hover:text-white">Returns</a></li>
+                    <h3 class="text-xs font-mono uppercase tracking-widest text-ink-950 dark:text-ink-100 mb-3">Assistance</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-ink-950 dark:hover:text-white transition-colors">Shipping Logistics</a></li>
+                        <li><a href="#" class="hover:text-ink-950 dark:hover:text-white transition-colors">Returns & Exchange</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Contact</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-center">
-                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
-                            <span>contact@shopsphere.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
-                            <span>+1 (800) 123-4567</span>
+                    <h3 class="text-xs font-mono uppercase tracking-widest text-ink-950 dark:text-ink-100 mb-3">Concierge</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li class="flex items-center gap-2">
+                            <i data-feather="mail" class="w-3.5 h-3.5 text-ink-400"></i>
+                            <span class="font-mono text-[11px]">contact@shopsphere.com</span>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p>&copy; 2023 ShopSphere. All rights reserved.</p>
+
+            <div class="border-t border-ink-200/60 dark:border-ink-800/60 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-mono text-ink-400">
+                <p>&copy; {% now "Y" %} ShopSphere. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <span>Privacy Policy</span>
+                    <span>•</span>
+                    <span>Terms of Service</span>
+                </div>
             </div>
         </div>
     </footer>
+</div>
 
-    <script>
-        // Dark mode toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
+<!-- Scripts -->
+<script>
+    // Theme toggle handling
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
 
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-        });
+    themeToggle.addEventListener('click', () => {
+        html.classList.toggle('dark');
+        localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
 
-        // Check for saved theme preference
-        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            html.classList.add('dark');
-        } else {
-            html.classList.remove('dark');
-        }
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+    } else {
+        html.classList.remove('dark');
+    }
 
-        // Feather icons
-        feather.replace();
-    </script>
-</body>
-</html>
+    // Initialize Feather Icons
+    feather.replace();
+</script>
+
+{% endblock %}

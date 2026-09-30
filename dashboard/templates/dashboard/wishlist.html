@@ -3,334 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wishlist | ShopSphere</title>
+    <title>My Wishlist — ShopSphere</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'serif': ['Instrument Serif', 'Georgia', 'serif'],
+                    },
                     colors: {
-                        primary: {
-                            500: '#0d9488',
-                            600: '#0f766e',
+                        ink: {
+                            50: '#f7f7f5',
+                            100: '#eeeeea',
+                            200: '#d9d9d1',
+                            300: '#b8b8ac',
+                            400: '#8f8f81',
+                            500: '#6f6f62',
+                            600: '#57574d',
+                            700: '#464640',
+                            800: '#2b2b26',
+                            900: '#1a1a17',
+                            950: '#0f0f0d',
                         },
-                        secondary: {
-                            500: '#f59e0b',
-                            600: '#d97706',
+                        accent: {
+                            50: '#fef7ee',
+                            500: '#c2410c',
+                            600: '#9a3412',
                         }
+                    },
+                    letterSpacing: {
+                        'tightest': '-0.04em',
                     }
                 }
             }
         }
     </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-feature-settings: "ss01", "cv11"; }
+        .serif-display { font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.02em; }
+        .hairline { border-color: rgba(0,0,0,0.08); }
+        .dark .hairline { border-color: rgba(255,255,255,0.08); }
+        .marquee { animation: marquee 40s linear infinite; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .dashboard-card { transition: border-color .3s, box-shadow .3s; }
+        .sidebar-link { transition: color .2s, background-color .2s; }
+        .product-card img { transition: transform 1s cubic-bezier(.2,.8,.2,1); }
+        .product-card:hover img { transform: scale(1.04); }
+    </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center space-x-2">
-                <i data-feather="shopping-bag" class="text-primary-500 dark:text-primary-400"></i>
-                <span class="text-xl font-bold text-gray-800 dark:text-white">ShopSphere</span>
-            </a>
+<body class="bg-ink-50 dark:bg-ink-950 text-ink-900 dark:text-ink-100 font-sans antialiased transition-colors duration-300">
 
-            <nav class="hidden md:flex space-x-8">
-                <a href="products.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Products</a>
-                <a href="categories.html" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Categories</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Deals</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium">Vouchers</a>
-            </nav>
+    <!-- Announcement Bar -->
+    <div class="bg-ink-900 dark:bg-ink-100 text-ink-50 dark:text-ink-900 text-xs tracking-wide overflow-hidden">
+        <div class="flex whitespace-nowrap py-2.5 marquee">
+            <div class="flex items-center gap-12 pr-12 shrink-0">
+                <span>✦ Complimentary shipping over $50</span>
+                <span>✦ New Autumn edit — now live</span>
+                <span>✦ 30-day considered returns</span>
+                <span>✦ Members earn 2× points this week</span>
+                <span>✦ Complimentary shipping over $50</span>
+                <span>✦ New Autumn edit — now live</span>
+                <span>✦ 30-day considered returns</span>
+                <span>✦ Members earn 2× points this week</span>
+            </div>
+        </div>
+    </div>
 
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="moon" class="hidden dark:block"></i>
-                    <i data-feather="sun" class="dark:hidden"></i>
-                </button>
-                <a href="#" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="shopping-cart"></i>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-ink-50/80 dark:bg-ink-950/80 backdrop-blur-xl border-b hairline">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+            <div class="flex justify-between items-center h-16">
+                <a href="/" class="flex items-baseline gap-1.5 group">
+                    <span class="serif-display text-2xl text-ink-900 dark:text-ink-50">Shopsphere</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-ink-400 dark:text-ink-500 hidden sm:inline">est. 2024</span>
                 </a>
-                <a href="{% url 'dashboard:user_dashboard' %}" class="p-2 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-500 dark:text-primary-400">
-                    <i data-feather="user"></i>
-                </a>
-                <button class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                    <i data-feather="menu"></i>
-                </button>
+
+                <nav class="hidden md:flex items-center gap-10">
+                    <a href="products.html" class="text-sm text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Shop</a>
+                    <a href="categories.html" class="text-sm text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Categories</a>
+                    <a href="#" class="text-sm text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Journal</a>
+                </nav>
+
+                <div class="flex items-center gap-1">
+                    <button id="theme-toggle" class="p-2.5 text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition" aria-label="Toggle theme">
+                        <i data-feather="moon" class="hidden dark:block w-[18px] h-[18px]"></i>
+                        <i data-feather="sun" class="dark:hidden w-[18px] h-[18px]"></i>
+                    </button>
+                    <a href="#" class="p-2.5 text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">
+                        <i data-feather="shopping-bag" class="w-[18px] h-[18px]"></i>
+                    </a>
+                    <a href="{% url 'dashboard:user_dashboard' %}" class="p-2.5 text-accent-500 hover:text-accent-600 transition">
+                        <i data-feather="user" class="w-[18px] h-[18px]"></i>
+                    </a>
+                    <button class="md:hidden p-2.5 text-ink-700 dark:text-ink-300">
+                        <i data-feather="menu" class="w-[18px] h-[18px]"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="py-8">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="md:w-1/4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
-                        <div class="flex items-center space-x-4 mb-6">
+    <main class="py-12 lg:py-16">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+            <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
+
+                <!-- Sidebar -->
+                <aside class="lg:w-1/4">
+                    <div class="bg-white dark:bg-ink-900 border hairline p-6 lg:p-8 rounded-none dashboard-card">
+                        <div class="flex items-center gap-4 mb-8 pb-8 border-b hairline">
                             <div class="relative">
-                                <img src="http://static.photos/people/200x200/1" alt="User" class="w-16 h-16 rounded-full object-cover">
-                                <span class="absolute bottom-0 right-0 bg-green-500 rounded-full w-4 h-4 border-2 border-white dark:border-gray-800"></span>
+                                <img src="http://static.photos/people/200x200/1" alt="User" class="w-12 h-12 rounded-full object-cover grayscale">
+                                <span class="absolute bottom-0 right-0 bg-accent-500 rounded-full w-2.5 h-2.5 ring-2 ring-white dark:ring-ink-900"></span>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800 dark:text-white">John Doe</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-300">Premium Member</p>
+                                <h3 class="text-sm font-semibold text-ink-900 dark:text-ink-50">John Doe</h3>
+                                <p class="text-[10px] uppercase tracking-[0.15em] text-ink-400">Premium Member</p>
                             </div>
                         </div>
-                        <nav class="space-y-2">
-                            <a href="{% url 'dashboard:user_dashboard' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                <i data-feather="home" class="w-5 h-5 mr-3"></i>
+
+                        <nav class="space-y-1.5">
+                            <a href="{% url 'dashboard:user_dashboard' %}" class="sidebar-link flex items-center gap-3.5 px-3 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-50 hover:bg-ink-100/55 dark:hover:bg-ink-800/40">
+                                <i data-feather="home" class="w-4 h-4"></i>
                                 Dashboard
                             </a>
-                            <a href="{% url 'dashboard:profile' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                <i data-feather="user" class="w-5 h-5 mr-3"></i>
+                            <a href="{% url 'dashboard:profile' %}" class="sidebar-link flex items-center gap-3.5 px-3 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-50 hover:bg-ink-100/55 dark:hover:bg-ink-800/40">
+                                <i data-feather="user" class="w-4 h-4"></i>
                                 Profile
                             </a>
-                            <a href="{% url 'dashboard:orders' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                <i data-feather="shopping-bag" class="w-5 h-5 mr-3"></i>
+                            <a href="{% url 'dashboard:orders' %}" class="sidebar-link flex items-center gap-3.5 px-3 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-50 hover:bg-ink-100/55 dark:hover:bg-ink-800/40">
+                                <i data-feather="shopping-bag" class="w-4 h-4"></i>
                                 Orders
                             </a>
-                            <a href="{% url 'dashboard:wishlist' %}" class="flex items-center px-4 py-3 rounded-lg bg-primary-50 dark:bg-gray-700 text-primary-500 dark:text-primary-400 font-medium">
-                                <i data-feather="heart" class="w-5 h-5 mr-3"></i>
+                            <a href="{% url 'dashboard:wishlist' %}" class="sidebar-link flex items-center gap-3.5 px-3 py-2.5 text-sm font-medium bg-ink-900 dark:bg-ink-100 text-ink-50 dark:text-ink-900">
+                                <i data-feather="heart" class="w-4 h-4"></i>
                                 Wishlist
                             </a>
-                            <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                <i data-feather="settings" class="w-5 h-5 mr-3"></i>
+                            <a href="#" class="sidebar-link flex items-center gap-3.5 px-3 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:text-ink-950 dark:hover:text-ink-50 hover:bg-ink-100/55 dark:hover:bg-ink-800/40">
+                                <i data-feather="settings" class="w-4 h-4"></i>
                                 Settings
                             </a>
-                            <a href="{% url 'accounts:logout' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                <i data-feather="log-out" class="w-5 h-5 mr-3"></i>
+                            <a href="{% url 'accounts:logout' %}" class="sidebar-link flex items-center gap-3.5 px-3 py-2.5 text-sm text-accent-500 hover:bg-accent-50/50 dark:hover:bg-accent-500/10">
+                                <i data-feather="log-out" class="w-4 h-4"></i>
                                 Logout
                             </a>
                         </nav>
                     </div>
-                </div>
+                </aside>
 
-                <div class="md:w-3/4">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-                        <h1 class="text-3xl font-bold text-gray-800 dark:text-white">My Wishlist (4 items)</h1>
-                        <div class="mt-4 md:mt-0">
-                            <button class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg">
-                                Move All to Cart
-                            </button>
+                <!-- Wishlist Content -->
+                <section class="lg:w-3/4">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 pb-6 border-b hairline">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.25em] text-ink-500 dark:text-ink-400 mb-2">— Curation Ledger</p>
+                            <h1 class="serif-display text-4xl lg:text-5xl text-ink-950 dark:text-ink-50">My Wishlist <span class="italic text-ink-400">(4)</span></h1>
                         </div>
+                        <button class="bg-ink-900 dark:bg-ink-100 text-ink-50 dark:text-ink-900 hover:bg-ink-800 dark:hover:bg-white px-5 py-3 text-xs font-medium tracking-wide transition">
+                            Move All to Cart
+                        </button>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/1" alt="Product" class="object-cover w-full h-full">
-                                </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
+                    <!-- Product Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                        <!-- Product 1 -->
+                        <div class="group product-card bg-white dark:bg-ink-900 border hairline flex flex-col justify-between">
+                            <div class="relative aspect-[4/5] overflow-hidden bg-ink-100 dark:bg-ink-800">
+                                <img src="http://static.photos/technology/640x360/1" alt="Product" class="absolute inset-0 w-full h-full object-cover grayscale">
+
+                                <div class="absolute top-4 right-4">
+                                    <button class="w-9 h-9 rounded-full bg-white dark:bg-ink-950 text-accent-500 flex items-center justify-center shadow-md hover:scale-105 transition-transform" aria-label="Remove from wishlist">
+                                        <i data-feather="heart" class="w-4 h-4 fill-current"></i>
                                     </button>
                                 </div>
-                                <div class="absolute bottom-3 left-3">
-                                    <span class="bg-secondary-500 text-white text-xs px-2 py-1 rounded-full">20% OFF</span>
+                                <div class="absolute bottom-4 left-4">
+                                    <span class="bg-white/95 dark:bg-ink-950/95 text-ink-900 dark:text-ink-100 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1">20% OFF</span>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Premium Wireless Headphones</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
+
+                            <div class="p-6 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-ink-900 dark:text-ink-100 leading-snug group-hover:underline group-hover:underline-offset-4 decoration-ink-300 dark:decoration-ink-700 transition">
+                                        Premium Wireless Headphones
+                                    </h3>
+                                    <div class="flex items-center gap-1.5 mt-2">
+                                        <div class="flex text-accent-500">
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                        </div>
+                                        <span class="text-[10px] font-medium text-ink-400">(124)</span>
                                     </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(124)</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$199.99</span>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400 line-through ml-1">$249.99</span>
+
+                                <div class="flex justify-between items-baseline mt-6 pt-4 border-t hairline">
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="text-sm font-semibold text-ink-900 dark:text-ink-50">$199.99</span>
+                                        <span class="text-xs text-ink-400 line-through">$249.99</span>
                                     </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
+                                    <button class="w-8 h-8 rounded-full bg-ink-50 hover:bg-ink-900 dark:bg-ink-800 dark:hover:bg-ink-100 text-ink-900 dark:text-ink-100 dark:hover:text-ink-900 hover:text-white flex items-center justify-center transition-colors duration-300" aria-label="Add to cart">
+                                        <i data-feather="shopping-bag" class="w-3.5 h-3.5"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/2" alt="Product" class="object-cover w-full h-full">
-                                </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
+                        <!-- Product 2 -->
+                        <div class="group product-card bg-white dark:bg-ink-900 border hairline flex flex-col justify-between">
+                            <div class="relative aspect-[4/5] overflow-hidden bg-ink-100 dark:bg-ink-800">
+                                <img src="http://static.photos/technology/640x360/2" alt="Product" class="absolute inset-0 w-full h-full object-cover grayscale">
+
+                                <div class="absolute top-4 right-4">
+                                    <button class="w-9 h-9 rounded-full bg-white dark:bg-ink-950 text-accent-500 flex items-center justify-center shadow-md hover:scale-105 transition-transform" aria-label="Remove from wishlist">
+                                        <i data-feather="heart" class="w-4 h-4 fill-current"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Smart Fitness Watch</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4"></i>
+
+                            <div class="p-6 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-ink-900 dark:text-ink-100 leading-snug group-hover:underline group-hover:underline-offset-4 decoration-ink-300 dark:decoration-ink-700 transition">
+                                        Smart Fitness Watch
+                                    </h3>
+                                    <div class="flex items-center gap-1.5 mt-2">
+                                        <div class="flex text-accent-500">
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 text-ink-200 dark:text-ink-700"></i>
+                                        </div>
+                                        <span class="text-[10px] font-medium text-ink-400">(87)</span>
                                     </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(87)</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$159.99</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
+
+                                <div class="flex justify-between items-baseline mt-6 pt-4 border-t hairline">
+                                    <span class="text-sm font-semibold text-ink-900 dark:text-ink-50">$159.99</span>
+                                    <button class="w-8 h-8 rounded-full bg-ink-50 hover:bg-ink-900 dark:bg-ink-800 dark:hover:bg-ink-100 text-ink-900 dark:text-ink-100 dark:hover:text-ink-900 hover:text-white flex items-center justify-center transition-colors duration-300" aria-label="Add to cart">
+                                        <i data-feather="shopping-bag" class="w-3.5 h-3.5"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/3" alt="Product" class="object-cover w-full h-full">
-                                </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
+                        <!-- Product 3 -->
+                        <div class="group product-card bg-white dark:bg-ink-900 border hairline flex flex-col justify-between">
+                            <div class="relative aspect-[4/5] overflow-hidden bg-ink-100 dark:bg-ink-800">
+                                <img src="http://static.photos/technology/640x360/3" alt="Product" class="absolute inset-0 w-full h-full object-cover grayscale">
+
+                                <div class="absolute top-4 right-4">
+                                    <button class="w-9 h-9 rounded-full bg-white dark:bg-ink-950 text-accent-500 flex items-center justify-center shadow-md hover:scale-105 transition-transform" aria-label="Remove from wishlist">
+                                        <i data-feather="heart" class="w-4 h-4 fill-current"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">4K Ultra HD Monitor</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
+
+                            <div class="p-6 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-ink-900 dark:text-ink-100 leading-snug group-hover:underline group-hover:underline-offset-4 decoration-ink-300 dark:decoration-ink-700 transition">
+                                        4K Ultra HD Monitor
+                                    </h3>
+                                    <div class="flex items-center gap-1.5 mt-2">
+                                        <div class="flex text-accent-500">
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                        </div>
+                                        <span class="text-[10px] font-medium text-ink-400">(210)</span>
                                     </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(210)</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$399.99</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
+
+                                <div class="flex justify-between items-baseline mt-6 pt-4 border-t hairline">
+                                    <span class="text-sm font-semibold text-ink-900 dark:text-ink-50">$399.99</span>
+                                    <button class="w-8 h-8 rounded-full bg-ink-50 hover:bg-ink-900 dark:bg-ink-800 dark:hover:bg-ink-100 text-ink-900 dark:text-ink-100 dark:hover:text-ink-900 hover:text-white flex items-center justify-center transition-colors duration-300" aria-label="Add to cart">
+                                        <i data-feather="shopping-bag" class="w-3.5 h-3.5"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300">
-                            <div class="relative">
-                                <div class="aspect-w-1 aspect-h-1">
-                                    <img src="http://static.photos/technology/640x360/4" alt="Product" class="object-cover w-full h-full">
-                                </div>
-                                <div class="absolute top-3 right-3">
-                                    <button class="bg-white dark:bg-gray-800 rounded-full p-2 shadow-sm hover:text-red-500">
-                                        <i data-feather="heart" class="w-5 h-5 fill-current text-red-500"></i>
+                        <!-- Product 4 -->
+                        <div class="group product-card bg-white dark:bg-ink-900 border hairline flex flex-col justify-between">
+                            <div class="relative aspect-[4/5] overflow-hidden bg-ink-100 dark:bg-ink-800">
+                                <img src="http://static.photos/technology/640x360/4" alt="Product" class="absolute inset-0 w-full h-full object-cover grayscale">
+
+                                <div class="absolute top-4 right-4">
+                                    <button class="w-9 h-9 rounded-full bg-white dark:bg-ink-950 text-accent-500 flex items-center justify-center shadow-md hover:scale-105 transition-transform" aria-label="Remove from wishlist">
+                                        <i data-feather="heart" class="w-4 h-4 fill-current"></i>
                                     </button>
                                 </div>
-                                <div class="absolute bottom-3 left-3">
-                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">Low Stock</span>
+                                <div class="absolute bottom-4 left-4">
+                                    <span class="bg-accent-500 text-white text-[10px] uppercase tracking-[0.15em] px-2.5 py-1">Low Stock</span>
                                 </div>
                             </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Ergonomic Office Chair</h3>
-                                <div class="flex items-center mb-2">
-                                    <div class="flex text-secondary-500 mr-2">
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                        <i data-feather="star" class="w-4 h-4"></i>
+
+                            <div class="p-6 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-ink-900 dark:text-ink-100 leading-snug group-hover:underline group-hover:underline-offset-4 decoration-ink-300 dark:decoration-ink-700 transition">
+                                        Ergonomic Office Chair
+                                    </h3>
+                                    <div class="flex items-center gap-1.5 mt-2">
+                                        <div class="flex text-accent-500">
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 fill-current"></i>
+                                            <i data-feather="star" class="w-3.5 h-3.5 text-ink-200 dark:text-ink-700"></i>
+                                        </div>
+                                        <span class="text-[10px] font-medium text-ink-400">(45)</span>
                                     </div>
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">(45)</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-primary-500 dark:text-primary-400 font-semibold">$249.00</span>
-                                    </div>
-                                    <button class="text-primary-500 dark:text-primary-400 hover:text-primary-600 dark:hover:text-primary-500">
-                                        <i data-feather="shopping-cart"></i>
+
+                                <div class="flex justify-between items-baseline mt-6 pt-4 border-t hairline">
+                                    <span class="text-sm font-semibold text-ink-900 dark:text-ink-50">$249.00</span>
+                                    <button class="w-8 h-8 rounded-full bg-ink-50 hover:bg-ink-900 dark:bg-ink-800 dark:hover:bg-ink-100 text-ink-900 dark:text-ink-100 dark:hover:text-ink-900 hover:text-white flex items-center justify-center transition-colors duration-300" aria-label="Add to cart">
+                                        <i data-feather="shopping-bag" class="w-3.5 h-3.5"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     </main>
 
-    <footer class="bg-gray-800 dark:bg-gray-900 text-white mt-12">
-        <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h4 class="text-lg font-bold mb-4 text-primary-500 dark:text-primary-400">ShopSphere</h4>
-                    <p class="text-sm text-gray-400">Your one-stop shop for all things great. Quality products, fast shipping.</p>
+    <!-- Footer -->
+    <footer class="border-t hairline bg-ink-50 dark:bg-ink-950">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+            <div class="grid grid-cols-2 lg:grid-cols-12 gap-10">
+                <div class="col-span-2 lg:col-span-5">
+                    <a href="/" class="serif-display text-3xl text-ink-950 dark:text-ink-50">Shopsphere</a>
+                    <p class="text-ink-600 dark:text-ink-400 mt-4 max-w-sm text-sm leading-relaxed">
+                        A small studio and shop for things worth keeping. Based in San Francisco, shipping worldwide.
+                    </p>
+                    <div class="flex items-center gap-1 mt-6">
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="instagram" class="w-4 h-4"></i></a>
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="twitter" class="w-4 h-4"></i></a>
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="youtube" class="w-4 h-4"></i></a>
+                        <a href="#" class="p-2 text-ink-500 hover:text-ink-900 dark:hover:text-ink-100 transition"><i data-feather="facebook" class="w-4 h-4"></i></a>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-primary-500">About Us</a></li>
-                        <li><a href="#" class="hover:text-primary-500">Contact</a></li>
-                        <li><a href="#" class="hover:text-primary-500">FAQ</a></li>
-                        <li><a href="#" class="hover:text-primary-500">Shipping Policy</a></li>
+
+                <div class="lg:col-span-2 lg:col-start-7">
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-ink-500 mb-5">Shop</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="products.html" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">All Products</a></li>
+                        <li><a href="categories.html" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Categories</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">New Arrivals</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">My Account</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="{% url 'dashboard:user_dashboard' %}" class="hover:text-primary-500">Dashboard</a></li>
-                        <li><a href="{% url 'dashboard:orders' %}" class="hover:text-primary-500">Order History</a></li>
-                        <li><a href="{% url 'dashboard:wishlist' %}" class="hover:text-primary-500">Wishlist</a></li>
-                        <li><a href="{% url 'dashboard:profile' %}" class="hover:text-primary-500">Profile Settings</a></li>
+
+                <div class="lg:col-span-2">
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-ink-500 mb-5">Help</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">FAQ</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Shipping</a></li>
+                        <li><a href="#" class="text-ink-700 dark:text-ink-300 hover:text-ink-950 dark:hover:text-ink-50 transition">Returns</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center">
-                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
-                            <span>contact@shopsphere.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
-                            <span>+1 (800) 123-4567</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="map-pin" class="mr-2 w-4 h-4"></i>
-                            <span>123 Main St, San Francisco, CA</span>
-                        </li>
-                    </ul>
+
+                <div class="lg:col-span-3">
+                    <h4 class="text-xs uppercase tracking-[0.2em] text-ink-500 mb-5">Studio</h4>
+                    <address class="not-italic text-sm text-ink-700 dark:text-ink-300 space-y-2 leading-relaxed">
+                        <p>123 Main Street<br>San Francisco, CA 94102</p>
+                        <p><a href="mailto:hello@shopsphere.com" class="hover:text-ink-950 dark:hover:text-ink-50 transition">hello@shopsphere.com</a></p>
+                    </address>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p>&copy; 2023 ShopSphere. All rights reserved.</p>
+
+            <div class="border-t hairline mt-16 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-ink-500">
+                <p>© 2024 Shopsphere Studio. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-ink-900 dark:hover:text-ink-100 transition">Privacy</a>
+                    <a href="#" class="hover:text-ink-900 dark:hover:text-ink-100 transition">Terms</a>
+                    <a href="#" class="hover:text-ink-900 dark:hover:text-ink-100 transition">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Dark mode toggle
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-        });
-
-        // Check for saved theme preference
         if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
         } else {
             html.classList.remove('dark');
         }
 
-        // Feather icons
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            feather.replace();
+        });
+
         feather.replace();
     </script>
 </body>
